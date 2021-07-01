@@ -1155,243 +1155,464 @@
 
 			return $c_data;
 		}
-		function CreateInventoryItemTitles() {
+		function CreateInventoryItemTitles( $params ) {
 			/*
-			
+			inventoryItemTitles=[
+								  {
+									"pkRowId": "03c50e88-1f47-414c-8ef4-ff1c62012e39",
+									"Source": "sample string 2",
+									"SubSource": "sample string 3",
+									"Title": "sample string 4",
+									"StockItemId": "6deb325e-363a-4375-a0ba-6f0bd085211a",
+									"StockItemIntId": 2
+								  }
+								]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "inventoryItemTitles=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/CreateInventoryItemTitles", $params); // Call API
 
 			return $c_data;
 		}
-		function CreateStockSupplierStat() {
+		function CreateStockSupplierStat( $params ) {
 			/*
-			
+				itemSuppliers=[
+								  {
+									"IsDefault": true,
+									"Supplier": "sample string 2",
+									"SupplierID": "47d942c9-8756-45d0-959f-d936fb9cf065",
+									"Code": "sample string 4",
+									"SupplierBarcode": "sample string 5",
+									"LeadTime": 6,
+									"PurchasePrice": 7.1,
+									"MinPrice": 8.1,
+									"MaxPrice": 9.1,
+									"AveragePrice": 10.1,
+									"AverageLeadTime": 11.1,
+									"SupplierMinOrderQty": 12,
+									"SupplierPackSize": 13,
+									"SupplierCurrency": "sample string 14",
+									"StockItemId": "7970aaff-c2a9-4425-8553-7a15d0d3fbf7",
+									"StockItemIntId": 16
+								  }
+								]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "itemSuppliers=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/CreateStockSupplierStat", $params); // Call API
 
 			return $c_data;
 		}
-		function CreateUserSpecificView() {
+		function CreateUserSpecificView( $params ) {
 			/*
-			
+				view={
+						  "Id": "ee18d436-950f-4297-b2c8-2f91c04599f9",
+						  "Name": "sample string 2",
+						  "Mode": 0,
+						  "Source": "sample string 3",
+						  "SubSource": "sample string 4",
+						  "CountryCode": "sample string 5",
+						  "CountryName": "sample string 6",
+						  "Listing": 0,
+						  "ShowOnlyChanged": true,
+						  "IncludeProducts": 0,
+						  "Filters": [
+							{
+							  "FilterName": 0,
+							  "DisplayName": "SKU / Title / Barcode",
+							  "FilterNameExact": [
+								"sample string 1"
+							  ],
+							  "Field": 2,
+							  "Condition": 0,
+							  "ConditionDisplayName": "Equals",
+							  "Value": "sample string 1"
+							}
+						  ],
+						  "Columns": [
+							{
+							  "ColumnName": 0,
+							  "DisplayName": "SKU",
+							  "ExportName": "SKU",
+							  "Group": 0,
+							  "Field": 2,
+							  "SortDirection": 0,
+							  "Width": 1.1,
+							  "IsEditable": false
+							}
+						  ],
+						  "Channels": [
+							{
+							  "Source": "sample string 1",
+							  "SubSource": "sample string 2",
+							  "SourceVersion": "sample string 3",
+							  "SourceType": "sample string 4",
+							  "Width": 5.1,
+							  "ChannelId": 6
+							}
+						  ]
+						}
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "view=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/CreateUserSpecificView", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteBatchesByStockItemId() {
+		function DeleteBatchesByStockItemId( $params ) {
 			/*
-			
+				stockItemId=7ae91326-9189-4120-9666-82e309747c61
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "stockItemId=" . $params;
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteBatchesByStockItemId", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteBatchInventoryInBulk() {
+		function DeleteBatchInventoryInBulk( $params ) {
 			/*
-			
+				batchInventoryIds=[
+									  1
+									]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "batchInventoryIds=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteBatchInventoryInBulk", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteCategoryById() {
+		function DeleteCategoryById( $params ) {
 			/*
-			
+				categoryId=61559246-ac7d-44b6-b591-b82892f5b4b9
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "categoryId=" . $params;
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteCategoryById", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteCountries() {
+		function DeleteCountries( $params ) {
 			/*
-			
+				countriesIds=[
+								  "b61b7342-0f35-49e2-8d77-6e99e25df45d"
+								]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "countriesIds=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteCountries", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteEbayCompatibilityList() {
+		function DeleteEbayCompatibilityList( $params ) {
 			/*
-			
+				request={
+						  "EbayCompatibilityList": [
+							{
+							  "FkStockItemId": "856023b0-29ba-48e0-9450-c3e8b04e0ee8",
+							  "FkCompatibilityListId": "60cea184-6cc4-4676-8946-f6172d9a8556",
+							  "SKU": "sample string 1",
+							  "CompatibilityNotes": "sample string 2",
+							  "Value": "sample string 3",
+							  "IncludeYears": "sample string 4",
+							  "ExcludeYears": "sample string 5",
+							  "Culture": "sample string 6"
+							}
+						  ]
+						}
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "request=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteEbayCompatibilityList", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteImagesFromInventoryItem() {
+		function DeleteImagesFromInventoryItem( $params ) {
 			/*
-			
+				inventoryItemImages={
+									  "97766571-b5da-4ade-8d0e-959cde7bb757": [
+										"sample string 1"
+									  ]
+									}
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "inventoryItemImages=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteImagesFromInventoryItem", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteInventoryItemChannelSKUs() {
+		function DeleteInventoryItemChannelSKUs( $params ) {
 			/*
-			
+				inventoryItemChannelSKUIds=[
+											  "0fe868ac-8a91-4914-8731-b966e13458c0"
+											]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "inventoryItemChannelSKUIds=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteInventoryItemChannelSKUs", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteInventoryItemCompositions() {
+		function DeleteInventoryItemCompositions( $stockItemId, $inventoryItemCompositionIds ) {
 			/*
-			
+				stockItemId=5cb347ba-8f4e-4152-84e4-27609c26e88f
+							&inventoryItemCompositionIds=[
+							  "28fba802-013d-4ae2-bc34-3b00d30665f1"
+							]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			if ( !is_array( $inventoryItemCompositionIds ) ) {
+				$inventoryItemCompositionIds = array( $inventoryItemCompositionIds );
+			}
+			
+			$params = http_build_query( array(
+							"stockItemId" => $stockItemId,
+							"inventoryItemCompositionIds" => json_encode($inventoryItemCompositionIds)
+						));
+	
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteInventoryItemCompositions", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteInventoryItemDescriptions() {
+		function DeleteInventoryItemDescriptions( $params ) {
 			/*
-			
+				inventoryItemDescriptionIds=[
+											  "cd6c1588-c62d-4514-83dd-8fcee7000bb1"
+											]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			if ( !is_array( $params ) ) {
+				$params = array( $params );
+			}	
+			
+			$params = "inventoryItemDescriptionIds=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteInventoryItemDescriptions", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteInventoryItemExtendedProperties() {
+		function DeleteInventoryItemExtendedProperties( $inventoryItemId, $inventoryItemExtendedPropertyIds ) {
 			/*
+				inventoryItemId=ce16ec22-b13f-46c9-acb6-2aa07ac02f6d
+								&inventoryItemExtendedPropertyIds=[
+										  "dd8508ea-a01c-4f0c-8137-1028eda302a9"
+										]
+				*/
+			if ( !is_array( $inventoryItemExtendedPropertyIds ) ) {
+				$inventoryItemExtendedPropertyIds = array( $inventoryItemExtendedPropertyIds );
+			}
 			
-			*/
-			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = http_build_query( array(
+							"inventoryItemId" => $inventoryItemId,
+							"inventoryItemExtendedPropertyIds" => json_encode($inventoryItemExtendedPropertyIds)
+						));
+						
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteInventoryItemExtendedProperties", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteInventoryItemPrices() {
+		function DeleteInventoryItemPrices( $params ) {
 			/*
-			
+				inventoryItemPriceIds=[
+										  "8f2379f4-7799-493b-b35a-469c50937a70"
+										]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			if ( !is_array( $params ) ) {
+				$params = array( $params );
+			}
+			
+			$params = "inventoryItemPriceIds=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteInventoryItemPrices", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteInventoryItemPricingRules() {
+		function DeleteInventoryItemPricingRules( $params ) {
 			/*
-			
+				pricingRuleIds=[
+								  1
+								]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			if ( !is_array( $params ) ) {
+				$params = array( $params );
+			}
+			
+			$params = "pricingRuleIds=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteInventoryItemPricingRules", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteInventoryItems() {
+		function DeleteInventoryItems( $InventoryItemIds, $inventoryItemIds ) {
 			/*
-			
+				request={
+						  "InventoryItemIds": [
+							"972661f3-f9ec-40b1-a92a-8aefe5787630"
+						  ],
+						  "SelectedRegions": [
+							{
+							  "Item1": 1,
+							  "Item2": 2
+							}
+						  ],
+						  "Token": "74bfada1-4f46-4b85-b164-6488cdb66f7d"
+						}&inventoryItemIds=[
+						  "1aff9db3-3cf4-4cbf-96e9-dc515550bc4c"
+						]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = http_build_query( array( "request" => json_encode( $InventoryItemIds ),
+							"inventoryItemIds" => json_encode( $inventoryItemIds ) ) );
+
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteInventoryItems", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteInventoryItemTitles() {
+		function DeleteInventoryItemTitles( $params ) {
 			/*
-			
+				inventoryItemTitleIds=[
+										  "f201654d-892f-48c0-bd6a-61730008433f"
+										]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			if ( !is_array( $params ) ) {
+				$params = array( $params );
+			}
+			
+			$params = "inventoryItemTitleIds=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteInventoryItemTitles", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteItemLocations() {
+		function DeleteItemLocations( $inventoryItemId, $itemLocations ) {
 			/*
-			
+				inventoryItemId=308f69e7-1400-4ccd-b7d4-10e6755e2132
+				&itemLocations=[
+								  "391c1bd5-27f0-45af-b795-43a8fd946b8a"
+								]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = http_build_query( 
+						array( "inventoryItemId" =>  $inventoryItemId,
+								"itemLocations" => json_encode( $itemLocations ) ) );
+
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteItemLocations", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteProductIdentifiers() {
+		function DeleteProductIdentifiers( $params ) {
 			/*
-			
+				request={
+						  "ProductIdentifierIds": [
+							1
+						  ]
+						}
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "request=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteProductIdentifiers", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteScrapCategories() {
+		function DeleteScrapCategories( $params ) {
 			/*
-			
+				request={
+						  "CategoryIds": [
+							1
+						  ]
+						}
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "request=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteScrapCategories", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteStockSupplierStat() {
+		function DeleteStockSupplierStat( $stockItemId, $itemSupplierIds ) {
 			/*
-			
+			stockItemId=9d29a3c2-996c-4a41-b5a7-df41d0b3eb04
+			&itemSupplierIds=[
+								  "221cfba1-9c6d-4d79-8930-12eb773db8c0"
+								]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = http_build_query( 
+						array( "stockItemId" =>  $stockItemId,
+								"itemSupplierIds" => json_encode( $itemSupplierIds ) ) );
+			
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteStockSupplierStat", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteSuppliers() {
+		function DeleteSuppliers( $params ) {
 			/*
-			
+				suppliersIds=[
+								  "9497e95a-39b2-4d13-9056-663fb8209015"
+								]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			if ( !is_array( $params ) ) {
+				$params = array( $params );
+			}
+			
+			$params = "suppliersIds=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteSuppliers", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteUserSpecificView() {
+		function DeleteUserSpecificView( $params ) {
 			/*
-			
+					viewName=sample string 1
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "viewName=" . $params;
+			$c_data = self::api_call( "POST", "/api/Inventory/DeleteUserSpecificView", $params); // Call API
 
 			return $c_data;
 		}
-		function DuplicateInventoryItem() {
+		function DuplicateInventoryItem( $inventoryItem, $sourceItemId, $Images) {
 			/*
-			
+				inventoryItem={
+							  "ItemDescription": "sample string 1",
+							  "Quantity": 2,
+							  "InOrder": 3,
+							  "Due": 4,
+							  "MinimumLevel": 5,
+							  "Available": -1,
+							  "IsCompositeParent": true,
+							  "ItemNumber": "sample string 6",
+							  "ItemTitle": "sample string 7",
+							  "BarcodeNumber": "sample string 8",
+							  "MetaData": "sample string 9",
+							  "isBatchedStockType": false,
+							  "PurchasePrice": 10.1,
+							  "RetailPrice": 1.1,
+							  "TaxRate": 11.1,
+							  "PostalServiceId": "a1e07cc6-bd7c-41ad-9092-9e1afba06524",
+							  "PostalServiceName": "sample string 13",
+							  "CategoryId": "ca18b494-c585-493a-ad6a-46f282338296",
+							  "CategoryName": "sample string 15",
+							  "PackageGroupId": "a67093fd-2a7c-4e56-9fdd-de2badfa4187",
+							  "PackageGroupName": "sample string 17",
+							  "Height": 18.1,
+							  "Width": 19.1,
+							  "Depth": 20.1,
+							  "Weight": 21.1,
+							  "CreationDate": "2021-05-05T15:35:21.7877098+01:00",
+							  "InventoryTrackingType": 22,
+							  "BatchNumberScanRequired": true,
+							  "SerialNumberScanRequired": true,
+							  "StockItemId": "3ea3be81-c389-4275-864d-50f6711390bc",
+							  "StockItemIntId": 26
+							}
+				&sourceItemId=b0b2bb0e-f979-4da6-9d24-87d0124eb4d1
+				&Images=true
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = http_build_query( 
+						array( "inventoryItem" =>  json_encode($inventoryItem),
+								"sourceItemId" => $sourceItemId,
+								"Images" => $Images ) );
+						
+			$c_data = self::api_call( "POST", "/api/Inventory/DuplicateInventoryItem", $params); // Call API
 
 			return $c_data;
 		}
