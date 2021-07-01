@@ -1044,53 +1044,114 @@
 
 			return $c_data;
 		}
-		function CreateInventoryItemCompositions() {
+		function CreateInventoryItemCompositions( $params ) {
 			/*
-			
+				inventoryItemCompositions=[
+										  {
+											"LinkedStockItemId": "6f869569-e5cd-4f2a-855e-57e717b59b71",
+											"ItemTitle": "sample string 2",
+											"SKU": "sample string 3",
+											"Quantity": 4,
+											"PurchasePrice": 5.1,
+											"InventoryTrackingType": 64,
+											"DimHeight": 7.1,
+											"DimWidth": 8.1,
+											"DimDepth": 9.1,
+											"Weight": 10.1,
+											"PackageGroupId": "fb7a1637-18cb-410a-a996-af3033560a84",
+											"StockItemId": "cf600281-0ba6-4d77-a6f6-34bb318614e2",
+											"StockItemIntId": 2
+										  }
+										]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "inventoryItemCompositions=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/CreateInventoryItemCompositions", $params); // Call API
 
 			return $c_data;
 		}
-		function CreateInventoryItemDescriptions() {
+		function CreateInventoryItemDescriptions( $params ) {
 			/*
-			
+				inventoryItemDescriptions=[
+										  {
+											"pkRowId": "a3b50266-3618-4c8e-8723-ae9949b1c835",
+											"Source": "sample string 2",
+											"SubSource": "sample string 3",
+											"Description": "sample string 4",
+											"StockItemId": "4e9a88f7-6289-4e53-b70e-04094c0b1538",
+											"StockItemIntId": 2
+										  }
+										]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "inventoryItemDescriptions=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/CreateInventoryItemDescriptions", $params); // Call API
 
 			return $c_data;
 		}
-		function CreateInventoryItemExtendedProperties() {
+		function CreateInventoryItemExtendedProperties( $params ) {
 			/*
-			
+				inventoryItemExtendedProperties=[
+												  {
+													"fkStockItemId": "d4070aca-f93a-49a5-a339-cfff0cd8c25d",
+													"SKU": "sample string 1",
+													"ProperyName": "sample string 2",
+													"PropertyValue": "sample string 3",
+													"PropertyType": "sample string 4"
+												  }
+												]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "inventoryItemExtendedProperties=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/CreateInventoryItemExtendedProperties", $params); // Call API
 
 			return $c_data;
 		}
-		function CreateInventoryItemPrices() {
+		function CreateInventoryItemPrices( $params ) {
 			/*
-			
+				inventoryItemPrices=[
+									  {
+										"Rules": [
+										  {
+											"pkRowId": 1,
+											"fkStockPricingId": "cecea4db-e251-4c49-9f22-483471a488f2",
+											"Type": "sample string 2",
+											"LowerBound": 3,
+											"Value": 4.1
+										  }
+										],
+										"pkRowId": "c41fff3e-8d59-4720-963d-228dd54dce0d",
+										"Source": "sample string 2",
+										"SubSource": "sample string 3",
+										"Price": 4.1,
+										"Tag": "sample string 5",
+										"UpdateStatus": 0,
+										"StockItemId": "03d05840-66c2-475f-a04a-4f05929f155c",
+										"StockItemIntId": 2
+									  }
+									]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "inventoryItemPrices=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/CreateInventoryItemPrices", $params); // Call API
 
 			return $c_data;
 		}
-		function CreateInventoryItemPricingRules() {
+		function CreateInventoryItemPricingRules( $params ) {
 			/*
-			
+				rules=[
+						  {
+							"pkRowId": 1,
+							"fkStockPricingId": "5d553051-7ae5-43d2-a8b3-a21a43384522",
+							"Type": "sample string 2",
+							"LowerBound": 3,
+							"Value": 4.1
+						  }
+						]
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "rules=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Inventory/CreateInventoryItemPricingRules", $params); // Call API
 
 			return $c_data;
 		}
