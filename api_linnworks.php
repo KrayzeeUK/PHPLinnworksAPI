@@ -26,7 +26,11 @@
 		function __construct() {
 			// initialize an object's properties upon creation
 
-			$this->curl_handle = curl_init(); // Initate New curl session
+			try{
+				$this->curl_handle = curl_init(); // Initate New curl sessionv
+			} catch( Exception $e ) {
+				echo "<pre>" . print_r($e,1) . "</pre>";
+			}
 		}
 		function __destruct() {
 			//  object is destructed or the script is stopped or exited
