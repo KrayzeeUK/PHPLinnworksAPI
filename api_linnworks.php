@@ -2478,96 +2478,212 @@
 
 		// Listings
 		
-		function EndListingsPendingRelist() {
+		function EndListingsPendingRelist( $params ) {
 			/*
-			
+			request={
+					  "Listings": [
+						{
+						  "ItemNumber": "sample string 1",
+						  "ActionType": "sample string 2",
+						  "ActionText": "sample string 3",
+						  "AffectivefkStockItemId": "e5ac7ac6-8a18-4bfc-af4a-c2056add13ad",
+						  "ListId": "32ea9ed3-5980-493e-98ec-b9fbeb3cb330",
+						  "ActionDateTime": "2021-05-05T15:35:21.5254118+01:00",
+						  "SetQuantity": 7,
+						  "SetPrice": 8.1,
+						  "IsError": true,
+						  "SKU": "sample string 10"
+						}
+					  ]
+					}
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "request=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Listings/EndListingsPendingRelist", $params); // Call API
 
 			return $c_data;
 		}
-		function GetEbayListingAudit() {
+		function GetEbayListingAudit( $params ) {
 			/*
-			
+				request={
+						  "ItemNumber": "sample string 1",
+						  "PageNumber": 2,
+						  "EntriesPerPage": 3
+						}
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "request=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Listings/GetEbayListingAudit", $params); // Call API
 
 			return $c_data;
 		}
-		function SetListingStrikeOffState() {
+		function SetListingStrikeOffState( $params ) {
 			/*
-			
+				request={
+						  "ListingAudits": [
+												{
+													"ItemNumber": String
+													"ActionType": String 	
+													"ActionText": String 	
+													"AffectivefkStockItemId": Guid 	
+													"ListId": Guid 	
+													"ActionDateTime": DateTime 	
+													"SetQuantity": Int32 	
+													"SetPrice": Double 	
+													"IsError": Boolean 	
+													"SKU": String
+												}
+											],
+						  "Listings": [
+										{
+											"SKU": String 	
+											"ItemNumber": String
+											"MappedBy"; String
+											"RelistPending": Boolean
+											"ChannelReferenceId": String
+											"StrickenOff": Boolean
+											"StockItemId": Guid
+											"StartTime": DateTime
+											"EndTime": DateTime
+											"StrikeOffDate": DateTime
+											"StrikeReason": String
+											"LinkedWith": String
+											"IsVariation": Boolean
+											"FixedPrice": Boolean
+											"ReslistedFrom": String
+											"ListId": Guid
+											"ListingPrice": Double
+											"VariationItems": List<eBayItem>
+											"IsGTC": Boolean
+											"IsActive": Boolean
+											"ChannelSKURowId": Guid
+											"LinkedItemId": Guid
+											"IgnoreSync": Boolean
+											"Title": String
+											"LinkedItemSku": String
+											"LinkedItemTitle": String
+											"MaxListedQuantity": Int32
+											"EndWhenStock": Int32
+											"StockPercentage": Double
+											"Quantity": Int32
+											"IsLinked": Boolean
+											"IsSuggestedToLink": Boolean
+											"IsMatchByTitle": Boolean
+											"TotalRows": Int64
+										}
+									],
+						  "StrikeReason": "sample string",
+						  "StrikeOffState": 0,
+						  "ListingsStatus": active
+						}		
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "request=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Listings/SetListingStrikeOffState", $params); // Call API
 
 			return $c_data;
 		}
 
 		// Locations
 		
-		function AddLocation() {
+		function AddLocation( $params ) {
 			/*
-			
+				location={
+						  "Address1": "sample string 1",
+						  "Address2": "sample string 2",
+						  "City": "sample string 3",
+						  "County": "sample string 4",
+						  "Country": "sample string 5",
+						  "ZipCode": "sample string 6",
+						  "IsNotTrackable": true,
+						  "LocationTag": "sample string 8",
+						  "CountInOrderUntilAcknowledgement": true,
+						  "FulfilmentCenterDeductStockWhenProcessed": true,
+						  "IsWarehouseManaged": true,
+						  "StockLocationId": "a439420c-680d-4910-b436-cf90f00e5807",
+						  "LocationName": "sample string 13",
+						  "IsFulfillmentCenter": true,
+						  "StockLocationIntId": 1
+						}
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "location=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Locations/AddLocation", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteLocation() {
+		function DeleteLocation( $params ) {
 			/*
-			
+				pkStockLocationId=5781bdf0-eae2-4587-b431-673191d56964
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "pkStockLocationId=" . $params;
+			$c_data = self::api_call( "POST", "/api/Locations/DeleteLocation", $params); // Call API
 
 			return $c_data;
 		}
-		function DeleteWarehouseTOTE() {
+		function DeleteWarehouseTOTE( $params ) {
 			/*
-			
+				request={
+						  "ToteIds": [
+							1
+						  ],
+						  "LocationId": "b232eae8-96df-467c-9952-10bab93a718b"
+						}
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "request=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Locations/DeleteWarehouseTOTE", $params); // Call API
 
 			return $c_data;
 		}
-		function GetLocation() {
+		function GetLocation( $params ) {
 			/*
-			
+				pkStockLocationId=9f542122-8f3b-4ee9-ad67-4fa9f908519b
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "pkStockLocationId=" . $params;
+			$c_data = self::api_call( "POST", "/api/Locations/GetLocation", $params); // Call API
 
 			return $c_data;
 		}
-		function GetWarehouseTOTEs() {
+		function GetWarehouseTOTEs( $params ) {
 			/*
-			
+				request={
+						  "LocationId": "e91a0ae0-b3e8-4d5c-a321-2133e9e49fc2",
+						  "ToteBarcode": "sample string 2",
+						  "TotId": 1
+						}
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "request=" . json_encode($params);
+			$c_data = self::api_call( "POST", "/api/Locations/GetWarehouseTOTEs", $params); // Call API
 
 			return $c_data;
 		}
-		function UpdateLocation() {
+		function UpdateLocation( $params ) {
 			/*
-			
+				location={
+						  "Address1": "sample string 1",
+						  "Address2": "sample string 2",
+						  "City": "sample string 3",
+						  "County": "sample string 4",
+						  "Country": "sample string 5",
+						  "ZipCode": "sample string 6",
+						  "IsNotTrackable": true,
+						  "LocationTag": "sample string 8",
+						  "CountInOrderUntilAcknowledgement": true,
+						  "FulfilmentCenterDeductStockWhenProcessed": true,
+						  "IsWarehouseManaged": true,
+						  "StockLocationId": "4c847e52-b8b1-4f04-a39c-238283b1e060",
+						  "LocationName": "sample string 13",
+						  "IsFulfillmentCenter": true,
+						  "StockLocationIntId": 1
+						}
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "location=" . json_encode($ordparamsernum);
+			$c_data = self::api_call( "POST", "/api/Locations/UpdateLocation", $params); // Call API
 
 			return $c_data;
 		}
@@ -2576,21 +2692,21 @@
 		
 		function GetInstalledMacros() {
 			/*
-			
+				request={}
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "request={}";
+			$c_data = self::api_call( "POST", "/api/Macro/GetInstalledMacros", $params); // Call API
 
 			return $c_data;
 		}
 		function GetMacroConfigurations() {
 			/*
-			
+				request={}
 			*/
 			
-			$params = "OrderId=" . json_encode($ordernum);
-			$c_data = self::api_call( "POST", "", $params); // Call API
+			$params = "request={}";
+			$c_data = self::api_call( "POST", "/api/Macro/GetMacroConfigurations", $params); // Call API
 
 			return $c_data;
 		}
