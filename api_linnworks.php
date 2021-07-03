@@ -702,7 +702,8 @@
 	echo "API Call Names: " . $apiname . "<hr>";		
 
 			if ( array_key_exists( $apiname, $api_calls ) ) {
-	echo "API Found<hr>";		
+	echo "API Found<hr>";
+	print_r( $api_calls[$apiname] );
 				return $api_calls[ $apiname ];
 			} else {
 	echo "API Not found<hr>";		
