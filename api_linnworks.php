@@ -712,7 +712,7 @@
 			
 			if ( $check_api == false ) {
 				// API Call not found
-				
+				echo "Not Found";
 				return false;
 			} else {
 				// API Call Found
