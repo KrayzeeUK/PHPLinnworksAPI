@@ -727,27 +727,21 @@
 
 				echo "Count: " . $pc . "<hr>";
 				
-				if ( $check_api["noparams"] > 0 ) {
-					if ( !empty($params) ) {
-						
-						if ( $pc >= $check_api["noparams"] ) {
-							foreach ( $params  AS $key => &$value ) {
-								echo $key . "<hr>";
-								$value = json_encode( $value );
-							}
-						} else {
-							// Does not meet the minimum amount of parameters
-							echo "No enough parameters<hr>";
-						}
-
-						print_r( $params );
-						$params = http_build_query( $params );
-						print_r( $params );
-						echo "<hr>";
-						return $this->api_call($check_api["type"],$check_api["url"],$params);
+				if ( $check_api["noparams"] == $pc ) {
+					foreach ( $params  AS $key => &$value ) {
+						echo $key . "<hr>";
+						$value = json_encode( $value );
 					}
+
+					print_r( $params );
+					$params = http_build_query( $params );
+					print_r( $params );
+					echo "<hr>";
+					return $this->api_call($check_api["type"],$check_api["url"],$params);
+
 				} else {
-					
+					// Does not meet the minimum amount of parameters
+					echo "No enough parameters<hr>";
 				}
 			}
 		}
