@@ -723,7 +723,7 @@
 					if ( !empty($params) ) {
 						
 						$pc = count( $params ); // count the number of parameters passed
-echo "Count: " . $pc . "<hr>";						
+						echo "Count: " . $pc . "<hr>";
 						if ( $pc >= $check_api["noparams"] ) {
 							foreach ( $params  AS $key => &$value ) {
 								echo $key . "<hr>";
@@ -733,14 +733,14 @@ echo "Count: " . $pc . "<hr>";
 							// Does not meet the minimum amount of parameters
 							echo "No enough parameters<hr>";
 						}
+
+						print_r( $params );
+						$params = http_build_query( $params );
+						print_r( $params );
 					}
 				} else {
 					
 				}
-				
-				print_r( $params );
-				$params = http_build_query( $params );
-				print_r( $params );
 			}
 		}
 
