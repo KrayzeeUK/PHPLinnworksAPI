@@ -708,7 +708,7 @@
 
 		function call_linnworks_api( $apicall, $params = NULL ) {
 			
-			$check_api = api_call_names( $apicall );
+			$check_api = $this->api_call_names( $apicall );
 			
 			$this->debug_display($check_api);
 		}
