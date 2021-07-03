@@ -718,12 +718,13 @@
 				// API Call Found
 
 				print_r( $params );
+
+				$pc = count( $params ); // count the number of parameters passed
+				echo "Count: " . $pc . "<hr>";
 				
 				if ( $check_api["noparams"] > 0 ) {
 					if ( !empty($params) ) {
 						
-						$pc = count( $params ); // count the number of parameters passed
-						echo "Count: " . $pc . "<hr>";
 						if ( $pc >= $check_api["noparams"] ) {
 							foreach ( $params  AS $key => &$value ) {
 								echo $key . "<hr>";
