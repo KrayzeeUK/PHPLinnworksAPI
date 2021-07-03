@@ -714,7 +714,7 @@
 				echo "Not Found<hr>";
 			} else {
 				echo "Found<hr>";
-				print_r( $check_api );
+				print_r( $params );
 				
 				if ( $check_api["noparams"] > 0 ) {
 					if ( !empty($params) ) {
@@ -722,8 +722,10 @@
 							$value = json_encode( $value );
 						}
 					}
+				} else {
+					
 				}
-				print_r( $check_api );
+				print_r( $params );
 			}
 		}
 
