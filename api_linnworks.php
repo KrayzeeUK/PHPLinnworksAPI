@@ -710,7 +710,7 @@
 			
 			$check_api = api_call_names( $apicall );
 			
-			debug_display($check_api);
+			$this->debug_display($check_api);
 		}
 
 		/*
