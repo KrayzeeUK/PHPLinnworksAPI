@@ -718,7 +718,7 @@
 				echo "Not Found<hr>";
 			} else {
 				echo "Found<hr>";
-				$this->debug_display($check_api);
+				$this->debug_display( $check_api );
 			}
 		}
 
