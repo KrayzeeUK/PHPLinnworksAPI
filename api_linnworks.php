@@ -128,7 +128,7 @@
 		}
 
 		function api_call_names( $apiname ) {
-			
+
 			$api_calls = array(
 					"GetServerUTCTime" => array( "type" => "POST", "url" => "/Api/Auth/GetServerUTCTime", "noparams" => 1),
 					"CreateNewCustomer" => array( "type" => "POST", "url" => "/Api/Customer/CreateNewCustomer", "noparams" => 1),
@@ -699,9 +699,13 @@
 					"UpdateWarehouseZoneType" => array( "type" => "POST", "url" => "/Api/Wms/UpdateWarehouseZoneType", "noparams" => 1)			
 				);
 				
+	echo "API Call Names: " . $api_name . "<hr>";		
+
 			if ( array_key_exists( $apiname, $api_calls ) ) {
+	echo "API Found<hr>";		
 				return $api_calls[ $apiname ];
 			} else {
+	echo "API Not found<hr>";		
 				return false;
 			}
 		}
