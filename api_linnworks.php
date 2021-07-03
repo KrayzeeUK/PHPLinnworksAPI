@@ -699,7 +699,7 @@
 					"UpdateWarehouseZoneType" => array( "type" => "POST", "url" => "/Api/Wms/UpdateWarehouseZoneType", "noparams" => 1)			
 				);
 				
-	echo "API Call Names: " . $api_name . "<hr>";		
+	echo "API Call Names: " . $apiname . "<hr>";		
 
 			if ( array_key_exists( $apiname, $api_calls ) ) {
 	echo "API Found<hr>";		
