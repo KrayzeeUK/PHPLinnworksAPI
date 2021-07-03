@@ -214,7 +214,7 @@
 					"GetBatchAudit" => array( "type" => "POST", "url" => "/Api/Inventory/GetBatchAudit", "noparams" => 1),
 					"GetBatchesByStockItemId" => array( "type" => "POST", "url" => "/Api/Inventory/GetBatchesByStockItemId", "noparams" => 1),
 					"GetBatchInventoryById" => array( "type" => "POST", "url" => "/Api/Inventory/GetBatchInventoryById", "noparams" => 1),
-					"GetCategories" => array( "type" => "POST", "url" => "/Api/Inventory/GetCategories", "noparams" => 1),
+					"GetCategories" => array( "type" => "POST", "url" => "/Api/Inventory/GetCategories", "noparams" => 0),
 					"GetChannels" => array( "type" => "POST", "url" => "/Api/Inventory/GetChannels", "noparams" => 1),
 					"GetChannelsBySource" => array( "type" => "POST", "url" => "/Api/Inventory/GetChannelsBySource", "noparams" => 1),
 					"GetCountries" => array( "type" => "POST", "url" => "/Api/Inventory/GetCountries", "noparams" => 1),
