@@ -719,12 +719,15 @@
 				if ( $check_api["noparams"] > 0 ) {
 					if ( !empty($params) ) {
 						foreach ( $params  AS $key => &$value ) {
+							echo $key . "<hr>";
 							$value = json_encode( $value );
 						}
 					}
 				} else {
 					
 				}
+				print_r( $params );
+				$params = http_build_query( $params );
 				print_r( $params );
 			}
 		}
