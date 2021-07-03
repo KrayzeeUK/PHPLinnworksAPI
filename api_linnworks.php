@@ -44,9 +44,14 @@
 			$this->debug = true;
 		}
 		protected function debug_display( $vals, $title = "Debug Info", $style='display: block; margin-left: auto; margin-right: auto; width: 90%; Height: 25%' ) {
-			$html = "<br><hr>" . $title . "<hr><pre>";
-			$html .= "<textarea style=\"" . $style . "\">" . print_r( $vals,true ) . "</textarea>";
-			$html .= "<pre><hr><br>";
+
+			$html = "";
+
+			if ( $this->debug ) {
+				$html .= "<br><hr>" . $title . "<hr><pre>";
+				$html .= "<textarea style=\"" . $style . "\">" . print_r( $vals,true ) . "</textarea>";
+				$html .= "<pre><hr><br>";
+			}			
 			
 			return $html;
 		}
@@ -103,17 +108,17 @@
 			
 			if ( $this->debug ) {
 				echo "URL: " . $api_url . "<hr>";
-				/* echo $this->debug_display( $d_options, "Options" );
+				echo $this->debug_display( $d_options, "Options" );
 				echo $this->debug_display( $d_header, "Headers" );
-				echo $this->debug_display( $api_params, "parameters" ); */
+				echo $this->debug_display( $api_params, "parameters" );
 			}
-
+			
 			curl_setopt_array($this->curl_handle, $d_options); // Set all options
 
 			$session_data = json_decode( curl_exec($this->curl_handle), true ); // Execute Curl function and store return & decode json return
 
 			if ( $this->debug ) {
-				//echo $this->debug_display( curl_getinfo($this->curl_handle), "CURL Info" );
+				echo $this->debug_display( curl_getinfo($this->curl_handle), "CURL Info" );
 				echo $this->debug_display( $session_data, "Session Data" );
 			}
 			
@@ -719,6 +724,14 @@
 					$pc = 0; // if empty the set Parameter count to 0
 					$params = NULL; // If empty enforce NULL value
 				}
+				
+				if ( $this->debug ) {
+					echo $this->debug_display( array( "APICalled", $apicall,
+													  "Paramerters", $params,
+													  "ParamerterCount" => $pc,
+													  "RequiredCount" => $check_api["noparams"]
+													), "Paramerters" );
+				}
 
 				if ( $check_api["noparams"] == $pc ) {
 					if ( $pc > 0 ) {
@@ -731,6 +744,10 @@
 					
 					return $this->api_call($check_api["type"],$check_api["url"],$params);
 
+				}
+			} else {
+				if ( $this->debug ) {
+					echo "API Call Not Found<hr>";
 				}
 			}
 			return false;
