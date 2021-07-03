@@ -715,6 +715,15 @@
 			} else {
 				echo "Found<hr>";
 				print_r( $check_api );
+				
+				if ( $check_api["noparams"] > 0 ) {
+					if ( !empty($params) ) {
+						foreach ( $param  AS $key => &$value ) [
+							$value = json_encode( $value );
+						}
+					}
+				}
+				print_r( $check_api );
 			}
 		}
 
