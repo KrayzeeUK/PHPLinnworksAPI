@@ -711,21 +711,33 @@
 			$check_api = $this->api_call_names( $apicall );
 			
 			if ( $check_api == false ) {
-				echo "Not Found<hr>";
+				// API Call not found
+				
+				return false;
 			} else {
-				echo "Found<hr>";
+				// API Call Found
+
 				print_r( $params );
 				
 				if ( $check_api["noparams"] > 0 ) {
 					if ( !empty($params) ) {
-						foreach ( $params  AS $key => &$value ) {
-							echo $key . "<hr>";
-							$value = json_encode( $value );
+						
+						$pc = count( $params ); // count the number of parameters passed
+echo "Count: " . $pc . "<hr>";						
+						if ( $pc >= $check_api["noparams"] ) {
+							foreach ( $params  AS $key => &$value ) {
+								echo $key . "<hr>";
+								$value = json_encode( $value );
+							}
+						} else {
+							// Does not meet the minimum amount of parameters
+							echo "No enough parameters<hr>";
 						}
 					}
 				} else {
 					
 				}
+				
 				print_r( $params );
 				$params = http_build_query( $params );
 				print_r( $params );
