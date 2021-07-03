@@ -737,6 +737,8 @@
 						print_r( $params );
 						$params = http_build_query( $params );
 						print_r( $params );
+						
+						return $this->api_call($check_api["type"],$check_api["url"],$params);
 					}
 				} else {
 					
