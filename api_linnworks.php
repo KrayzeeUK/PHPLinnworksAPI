@@ -719,8 +719,12 @@
 
 				print_r( $params );
 
-				$pc = count( $params ); // count the number of parameters passed
-				echo "Count: " . $pc . "<hr>";
+				if ( !empty($params) ) {
+					$pc = count( $params ); // count the number of parameters passed
+					echo "Count: " . $pc . "<hr>";
+				} else {
+					$pc = 0;
+				}
 				
 				if ( $check_api["noparams"] > 0 ) {
 					if ( !empty($params) ) {
