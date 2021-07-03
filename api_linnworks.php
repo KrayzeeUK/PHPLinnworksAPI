@@ -718,7 +718,7 @@
 				
 				if ( $check_api["noparams"] > 0 ) {
 					if ( !empty($params) ) {
-						foreach ( $param  AS $key => &$value ) {
+						foreach ( $params  AS $key => &$value ) {
 							$value = json_encode( $value );
 						}
 					}
