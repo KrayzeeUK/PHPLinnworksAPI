@@ -102,7 +102,7 @@
 			}
 			
 			if ( $this->debug ) {
-				echo "URL: " . $api_url;
+				echo "URL: " . $api_url . "<hr>";
 				/* echo $this->debug_display( $d_options, "Options" );
 				echo $this->debug_display( $d_header, "Headers" );
 				echo $this->debug_display( $api_params, "parameters" ); */
