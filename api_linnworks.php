@@ -80,10 +80,11 @@
 					if ( !mkdir( $this->log_dir, 0777, true) ) {
 						// if unable to make directory exit with failure message
 						Die("Failed to create file struction");
-					} else {
-						file_put_contents( $lfname, var_export( $log, true ), FILE_APPEND );
 					}
 				}
+				
+				file_put_contents( $lfname, var_export( $log, true ), FILE_APPEND );
+				
 			}
 		}
 		
