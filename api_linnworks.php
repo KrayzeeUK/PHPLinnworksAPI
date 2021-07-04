@@ -63,7 +63,7 @@
 
 		protected function log_api_calls( $log ) {
 			echo __DIR__;
-			if ( $log_api AND $this->log_dir != NULL ) {
+			if ( $this->log_api AND $this->log_dir != NULL ) {
 				
 				$lfname = "api_log_" . date('Y-m-d') . ".log";
 				
@@ -73,7 +73,7 @@
 						// if unable to make directory exit with failure message
 						Die("Failed to create file struction");
 					} else {
-						
+						print_r($log);
 					}
 				}
 			}
