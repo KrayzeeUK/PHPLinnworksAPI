@@ -797,7 +797,7 @@
 						$log_data["Final"] = $params;
 
 						if ( $this->debug ) {
-							echo $this->debug_display( $params, "Final Parameters" ) );
+							echo $this->debug_display( $params, "Final Parameters" );
 						}
 
 						$params = http_build_query( $params );
