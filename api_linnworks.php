@@ -68,6 +68,7 @@
 			}
 			
 			$this->log_dir = $path; // Set log path
+			$this->log_api = true; // if log path set then enable logging
 		}
 		protected function log_api_calls( $log ) {
 
