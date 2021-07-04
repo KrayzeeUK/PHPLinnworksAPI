@@ -81,7 +81,7 @@
 						// if unable to make directory exit with failure message
 						Die("Failed to create file struction");
 					} else {
-						file_put_contents( $lfname, var_export( $log, true ) );
+						file_put_contents( $lfname, var_export( $log, true ), FILE_APPEND );
 					}
 				}
 			}
