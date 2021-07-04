@@ -706,7 +706,7 @@
 				);
 				
 			if ( array_key_exists( strtolower( $apiname ), $api_calls ) ) {
-				return $api_calls[ $apiname ];
+				return $api_calls[ strtolower( $apiname ) ];
 			} else {
 				return false;
 			}
