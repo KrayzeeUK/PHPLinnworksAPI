@@ -795,10 +795,10 @@
 								);
 				
 				if ( $this->debug ) {
-					echo $this->debug_display( $log_data, "Paramerters" );
+					echo $this->debug_display( $log_data, "Parameters" );
 				}
 
-				if ( $check_api["noparams"] == $pc ) {
+				if ( $check_api["noparams"] <= $pc ) {
 					if ( $pc > 0 ) {
 						foreach ( $params AS $key => &$value ) {
 							$value = json_encode( $value );
