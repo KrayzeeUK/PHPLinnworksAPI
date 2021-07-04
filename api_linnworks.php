@@ -740,8 +740,10 @@
 					"updatewarehousezonetype" => array( "type" => "POST", "url" => "/Api/Wms/UpdateWarehouseZoneType", "noparams" => 1)			
 				);
 				
-			if ( array_key_exists( strtolower( $apiname ), $api_calls ) ) {
-				return $api_calls[ strtolower( $apiname ) ];
+			$apiname = strtolower( $apiname );
+			
+			if ( array_key_exists( $apiname, $api_calls ) ) {
+				return $api_calls[ $apiname ];
 			} else {
 				return false;
 			}
