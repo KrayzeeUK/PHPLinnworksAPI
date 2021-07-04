@@ -25,7 +25,7 @@
 		
 		private $debug = false; 			// Enable debug mode (Call enable_debug function to enable)
 
-		private $log_api = true;			// Enable API Logging
+		private $log_api = false;			// Enable API Logging
 		private $log_dir = NULL;			// Director to save API Call files in
 		
 		function __construct() {
@@ -83,7 +83,7 @@
 					}
 				}
 				
-				file_put_contents( $lfname, var_export( $log, true ), FILE_APPEND );
+				file_put_contents( $lfname, (var_export( $log, true ) . "\r\n"), FILE_APPEND );
 				
 			}
 		}
