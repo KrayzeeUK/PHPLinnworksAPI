@@ -741,7 +741,7 @@
 						}
 
 						if ( $this->debug ) {
-							echo $this->debug_display( array( "Final Parameters", $params ) );
+							echo $this->debug_display( $params, "Final Parameters" ) );
 						}
 
 						$params = http_build_query( $params );
