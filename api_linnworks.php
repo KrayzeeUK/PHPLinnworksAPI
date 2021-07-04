@@ -84,7 +84,7 @@
 					}
 				}
 				
-				file_put_contents( $lfname, (var_export( $log, true ) . "\r\n"), FILE_APPEND );
+				file_put_contents( $lfname, (var_export( $log, true ) . "\r\n\r\n"), FILE_APPEND );
 				
 			}
 		}
