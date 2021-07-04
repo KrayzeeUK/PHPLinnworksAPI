@@ -26,7 +26,7 @@
 		private $debug = false; 			// Enable debug mode (Call enable_debug function to enable)
 
 		private $log_api = true;			// Enable API Logging
-		private $log_dir = __DIR__;			// Director to save API Call files in
+		private $log_dir = NULL;			// Director to save API Call files in
 		
 		function __construct() {
 			// initialize an object's properties upon creation
@@ -61,8 +61,12 @@
 			return $html;
 		}
 
+		function set_log_dir( $path ) {
+			
+			$this->log_dir = $path; // Set log path
+		}
 		protected function log_api_calls( $log ) {
-			echo __DIR__;
+
 			if ( $this->log_api AND $this->log_dir != NULL ) {
 				
 				$lfname = "api_log_" . date('Y-m-d') . ".log";
