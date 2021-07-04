@@ -73,7 +73,7 @@
 
 			if ( $this->log_api AND $this->log_dir != NULL ) {
 				
-				$lfname = "api_log_" . date('Y-m-d') . ".log";
+				$lfname = $this->log_dir . "api_log_" . date('Y-m-d') . ".log";
 				
 				if ( !file_exists ( $this->log_dir ) ) {
 					// Directory Doesnt Exist.
@@ -81,7 +81,7 @@
 						// if unable to make directory exit with failure message
 						Die("Failed to create file struction");
 					} else {
-						print_r($log);
+						file_put_contents( $lfname, var_export( $log, true ) );
 					}
 				}
 			}
