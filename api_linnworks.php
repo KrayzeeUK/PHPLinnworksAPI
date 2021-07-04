@@ -740,9 +740,13 @@
 							$value = json_encode( $value );
 						}
 
+						if ( $this->debug ) {
+							echo $this->debug_display( array( "Final Parameters", $params )
+						}
+
 						$params = http_build_query( $params );
 					}
-					
+										
 					return $this->api_call($check_api["type"],$check_api["url"],$params);
 
 				}
