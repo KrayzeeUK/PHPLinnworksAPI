@@ -63,6 +63,10 @@
 
 		function set_log_dir( $path ) {
 			
+			if ( substr($path, -1) != "\\" ) {
+				$path = $path . "\\";
+			}
+			
 			$this->log_dir = $path; // Set log path
 		}
 		protected function log_api_calls( $log ) {
