@@ -14,6 +14,7 @@
 	class api_linnworks {
 		
 		private $curl_handle = NULL; 		// Pointer to curl process to be set later
+		
 		private $linn_app_id = NULL; 		// Linnworks App ID
 		private $linn_app_secret = NULL;	// Linnworks App Secret Key
 		private $linn_app_token = NULL; 	// Linnworks App Token
@@ -21,7 +22,11 @@
 		private $linn_auth_token = NULL;	// API Token
 		private $linn_auth_server = NULL; 	// API Server
 		public $linn_error = NULL; 			// Last Error Message
-		private $debug = false; 			// Enable debug mode
+		
+		private $debug = false; 			// Enable debug mode (Call enable_debug function to enable)
+
+		private $log_api = true;			// Enable API Logging
+		private $log_dir = __DIR__;			// Director to save API Call files in
 		
 		function __construct() {
 			// initialize an object's properties upon creation
@@ -56,6 +61,24 @@
 			return $html;
 		}
 
+		protected function log_api_calls( $log ) {
+			echo __DIR__;
+			if ( $log_api AND $this->log_dir != NULL ) {
+				
+				$lfname = "api_log_" . date('Y-m-d') . ".log";
+				
+				if ( !file_exists ( $this->log_dir ) ) {
+					// Directory Doesnt Exist.
+					if ( !mkdir( $this->log_dir, 0777, true) ) {
+						// if unable to make directory exit with failure message
+						Die("Failed to create file struction");
+					} else {
+						
+					}
+				}
+			}
+		}
+		
 		// Main API Calling Routine
 
 		protected function api_call( $type, $api_url, $api_params=NULL, $api_headers=NULL, $api_options=NULL ) {
@@ -63,6 +86,8 @@
 				Set all require headers for API Authorisation
 			*/
 			
+			$log_data["CallType"] = $type; // Assign call type to log
+
 			$d_header[] = "Connection: keep-alive";
 			$d_header[] = "Accept: application/json";
 			$d_header[] = "Content-Type: application/x-www-form-urlencoded; charset=UTF-8";
@@ -74,9 +99,13 @@
 				$api_url = $this->linn_auth_server . $api_url;
 			}
 			
+			$log_data["URL"] = $api_url; // Assign URL to log
+			
 			if ( $api_headers != NULL AND !empty($api_headers) ) {
 				$d_header = array_merge( $d_header, $api_headers ); // Merge Default Headers with additional headers
 			}
+			
+			$log_data["Headers"] = $d_header; // Assign headers to log
 			
 			// Roll everything up into final parameters for curl
 
@@ -106,6 +135,8 @@
 				
 			}
 			
+			$log_data["Parameters"] = $api_params; // Assign parameters to log
+			
 			if ( $this->debug ) {
 				echo "URL: " . $api_url . "<hr>";
 				echo $this->debug_display( $d_options, "Options" );
@@ -117,11 +148,15 @@
 
 			$session_data = json_decode( curl_exec($this->curl_handle), true ); // Execute Curl function and store return & decode json return
 
+			$log_data["APIReturn"] = $session_data; // Assign API Return data to log
+
 			if ( $this->debug ) {
 				echo $this->debug_display( curl_getinfo($this->curl_handle), "CURL Info" );
 				echo $this->debug_display( $session_data, "Session Data" );
 			}
-			
+
+			log_api_calls( $log_data, "API Call" ); // Log API Call
+
 			if ( !empty( $session_data["Code"] ) ) {
 				$this->linn_error = $session_data;
 				error_log("Linnworks API:api_call>Session Data." . print_r($session_data,true), 0);
@@ -712,52 +747,6 @@
 			}
 		}
 
-		function call_linnworks_api( $apicall, $params = NULL ) {
-			
-			$check_api = $this->api_call_names( $apicall );
-			
-			if ( $check_api != false ) {
-				// API Call Found
-
-				if ( !empty($params) AND !is_null($params) ) {
-					$pc = count( $params ); // count the number of parameters passed
-				} else {
-					$pc = 0; // if empty the set Parameter count to 0
-					$params = NULL; // If empty enforce NULL value
-				}
-				
-				if ( $this->debug ) {
-					echo $this->debug_display( array( "APICalled", $apicall,
-													  "Paramerters", $params,
-													  "ParamerterCount" => $pc,
-													  "RequiredCount" => $check_api["noparams"]
-													), "Paramerters" );
-				}
-
-				if ( $check_api["noparams"] == $pc ) {
-					if ( $pc > 0 ) {
-						foreach ( $params  AS $key => &$value ) {
-							$value = json_encode( $value );
-						}
-
-						if ( $this->debug ) {
-							echo $this->debug_display( $params, "Final Parameters" ) );
-						}
-
-						$params = http_build_query( $params );
-					}
-										
-					return $this->api_call($check_api["type"],$check_api["url"],$params);
-
-				}
-			} else {
-				if ( $this->debug ) {
-					echo "API Call Not Found<hr>";
-				}
-			}
-			return false;
-		}
-
 		/*
 			Parameter formatting notes
 
@@ -773,6 +762,58 @@
 				{"Test":["data"]}
 		*/
 		
+
+		function call_linnworks_api( $apicall, $params = NULL ) {
+			
+			$check_api = $this->api_call_names( $apicall );
+			
+			if ( $check_api != false ) {
+				// API Call Found
+
+				if ( !empty($params) AND !is_null($params) ) {
+					$pc = count( $params ); // count the number of parameters passed
+				} else {
+					$pc = 0; // if empty the set Parameter count to 0
+					$params = NULL; // If empty enforce NULL value
+				}
+				
+				$log_data = array( $apicall => $params,
+								  "ParamerterCount" => $pc,
+								  "RequiredCount" => $check_api["noparams"]
+								);
+				
+				if ( $this->debug ) {
+					echo $this->debug_display( $log_data, "Paramerters" );
+				}
+
+				if ( $check_api["noparams"] == $pc ) {
+					if ( $pc > 0 ) {
+						foreach ( $params  AS $key => &$value ) {
+							$value = json_encode( $value );
+						}
+						
+						$log_data["Final"] = $params;
+
+						if ( $this->debug ) {
+							echo $this->debug_display( $params, "Final Parameters" ) );
+						}
+
+						$params = http_build_query( $params );
+					}
+					
+					log_api_calls( $log_data, "Call Linnworks API" ); // Log API Call
+										
+					return $this->api_call($check_api["type"],$check_api["url"],$params);
+
+				}
+			} else {
+				if ( $this->debug ) {
+					echo "API Call Not Found<hr>";
+				}
+			}
+			return false;
+		}
+
 		function check_credentials() {
 			/*
 				Check if the credentials are set and return true if they are and false if not
