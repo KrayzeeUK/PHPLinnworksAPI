@@ -155,7 +155,7 @@
 				echo $this->debug_display( $session_data, "Session Data" );
 			}
 
-			log_api_calls( $log_data, "API Call" ); // Log API Call
+			$this->log_api_calls( $log_data, "API Call" ); // Log API Call
 
 			if ( !empty( $session_data["Code"] ) ) {
 				$this->linn_error = $session_data;
@@ -803,7 +803,7 @@
 						$params = http_build_query( $params );
 					}
 					
-					log_api_calls( $log_data, "Call Linnworks API" ); // Log API Call
+					$this->log_api_calls( $log_data, "Call Linnworks API" ); // Log API Call
 										
 					return $this->api_call($check_api["type"],$check_api["url"],$params);
 
