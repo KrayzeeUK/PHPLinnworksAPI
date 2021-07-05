@@ -306,7 +306,7 @@
 					"getstockitembatchesbylocation" => array( "type" => "POST", "url" => "/Api/Inventory/GetStockItemBatchesByLocation", "noparams" => 1),
 					"getstockitemidsbysku" => array( "type" => "POST", "url" => "/Api/Inventory/GetStockItemIdsBySKU", "noparams" => 1),
 					"getstockitemlabels" => array( "type" => "POST", "url" => "/Api/Inventory/GetStockItemLabels", "noparams" => 1),
-					"getstocklocations" => array( "type" => "POST", "url" => "/Api/Inventory/GetStockLocations", "noparams" => 1),
+					"getstocklocations" => array( "type" => "POST", "url" => "/Api/Inventory/GetStockLocations", "noparams" => 0),
 					"getstocksupplierstat" => array( "type" => "POST", "url" => "/Api/Inventory/GetStockSupplierStat", "noparams" => 1),
 					"getsupplierdetails" => array( "type" => "POST", "url" => "/Api/Inventory/GetSupplierDetails", "noparams" => 1),
 					"getsuppliers" => array( "type" => "POST", "url" => "/Api/Inventory/GetSuppliers", "noparams" => 1),
