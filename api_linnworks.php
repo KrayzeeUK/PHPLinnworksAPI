@@ -24,6 +24,7 @@
 		public $linn_error = NULL; 			// Last Error Message
 		
 		private $debug = false; 			// Enable debug mode (Call enable_debug function to enable)
+		public $debug_info = NULL;			// String containing HTML Debug info.
 
 		private $log_api = false;			// Enable API Logging
 		private $log_dir = NULL;			// Director to save API Call files in
@@ -34,7 +35,7 @@
 			try{
 				$this->curl_handle = curl_init(); // Initate New curl sessionv
 			} catch( Exception $e ) {
-				echo "<pre>" . print_r($e,1) . "</pre>";
+				$this->debug_display( print_r($e,1) );
 			}
 		}
 		function __destruct() {
@@ -58,7 +59,7 @@
 				$html .= "<hr></div>";
 			}			
 			
-			return $html;
+			$this->debug_info .= $html;
 		}
 
 		function set_log_dir( $path ) {
@@ -148,10 +149,10 @@
 			$log_data["Parameters"] = $api_params; // Assign parameters to log
 			
 			if ( $this->debug ) {
-				echo "URL: " . $api_url . "<hr>";
-				echo $this->debug_display( $d_options, "Options" );
-				echo $this->debug_display( $d_header, "Headers" );
-				echo $this->debug_display( $api_params, "parameters" );
+				$this->debug_display( $api_url,  "URL: " );
+				$this->debug_display( $d_options, "Options" );
+				$this->debug_display( $d_header, "Headers" );
+				$this->debug_display( $api_params, "parameters" );
 			}
 			
 			curl_setopt_array($this->curl_handle, $d_options); // Set all options
@@ -161,15 +162,14 @@
 			$log_data["APIReturn"] = $session_data; // Assign API Return data to log
 
 			if ( $this->debug ) {
-				echo $this->debug_display( curl_getinfo($this->curl_handle), "CURL Info" );
-				echo $this->debug_display( $session_data, "Session Data" );
+				$this->debug_display( curl_getinfo($this->curl_handle), "CURL Info" );
+				$this->debug_display( $session_data, "Session Data" );
 			}
 
 			$this->log_api_calls( $log_data, "API Call" ); // Log API Call
 
 			if ( !empty( $session_data["Code"] ) ) {
 				$this->linn_error = $session_data;
-				error_log("Linnworks API:api_call>Session Data." . print_r($session_data,true), 0);
 				return false;
 			} else {
 				$this->linn_error = NULL;
@@ -795,7 +795,7 @@
 								);
 				
 				if ( $this->debug ) {
-					echo $this->debug_display( $log_data, "Parameters" );
+					$this->debug_display( $log_data, "Parameters" );
 				}
 
 				if ( $check_api["noparams"] <= $pc ) {
@@ -807,7 +807,7 @@
 						$log_data["Final"] = $params;
 
 						if ( $this->debug ) {
-							echo $this->debug_display( $params, "Final Parameters" );
+							$this->debug_display( $params, "Final Parameters" );
 						}
 
 						$params = http_build_query( $params );
@@ -820,7 +820,7 @@
 				}
 			} else {
 				if ( $this->debug ) {
-					echo "API Call Not Found<hr>";
+					$this->debug_display(NULL, "API Call Not Found");
 				}
 			}
 			return false;
