@@ -53,9 +53,9 @@
 			$html = "";
 
 			if ( $this->debug ) {
-				$html .= "<br><hr>" . $title . "<hr><pre>";
+				$html .= "<div><hr>" . $title . "<hr>";
 				$html .= "<textarea style=\"" . $style . "\">" . print_r( $vals,true ) . "</textarea>";
-				$html .= "<pre><hr><br>";
+				$html .= "<hr></div>";
 			}			
 			
 			return $html;
