@@ -8,7 +8,7 @@
 
 		https://apps.linnworks.net/Api
 
-		Linnworks API Intergration	
+		Linnworks API Intergration	Version 1.0
 	*/
 	
 	class api_linnworks {
