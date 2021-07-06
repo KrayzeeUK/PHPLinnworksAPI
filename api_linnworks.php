@@ -801,7 +801,9 @@
 				if ( $check_api["noparams"] <= $pc ) {
 					if ( $pc > 0 ) {
 						foreach ( $params AS $key => &$value ) {
-							$value = json_encode( $value );
+							if ( is_array($value) OR is_object($value) ) {
+								$value = json_encode( $value );
+							}
 						}
 						
 						$log_data["Final"] = $params;
