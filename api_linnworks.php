@@ -96,6 +96,8 @@
 			/*
 				Set all require headers for API Authorisation
 			*/
+
+			$type = strtolower($type); // Make sure the type is lowercase
 			
 			$log_data["CallType"] = $type; // Assign call type to log
 
@@ -132,12 +134,12 @@
 				CURLOPT_HTTPHEADER => $d_header
 			);
 			
-			if ( $type == "POST" ) {
+			if ( $type == "post" ) {
 				 curl_setopt($this->curl_handle, CURLOPT_POST, 1);
 				 if ( !empty($api_params) AND $api_params != NULL) {
 					curl_setopt($this->curl_handle, CURLOPT_POSTFIELDS, $api_params);
 				 }
-			} elseif ( $type == "PUT" ) {
+			} elseif ( $type == "put" ) {
 				curl_setopt($this->curl_handle, CURLOPT_CUSTOMREQUEST, "PUT");
 				 if ( !empty($api_params) AND $api_params != NULL) {
 					curl_setopt($this->curl_handle, CURLOPT_POSTFIELDS, $api_params);
@@ -776,6 +778,8 @@
 		
 
 		function call_linnworks_api( $apicall, $params = NULL ) {
+			
+			$this->debug_info = NULL;  // Reset Debug info per call
 			
 			$check_api = $this->api_call_names( $apicall );
 			
