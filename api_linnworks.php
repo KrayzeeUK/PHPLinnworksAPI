@@ -821,8 +821,13 @@
 					
 					$this->log_api_calls( $log_data, "Call Linnworks API" ); // Log API Call
 										
-					return $this->api_call($check_api["type"],$check_api["url"],$params);
+					$api_return = $this->api_call($check_api["type"],$check_api["url"],$params);
 
+					if ( $this->debug ) {
+						$this->debug_display( $api_return, "API Return" );
+					}
+
+					return $api_return;
 				}
 			} else {
 				if ( $this->debug ) {
@@ -899,6 +904,46 @@
 			*/
 			
 			$url = "/api/Auth/GetApplicationProfileBySecretKey";
+		}
+
+		// Customer functions
+		
+		function addordernotebyorderid( $orderID, $note, $internal ) {
+			/*
+				Add an additional note to a order.
+				
+				Parameters
+					$orderID	Type String		Linnworks Order ID
+					$note		Type String		String containing the note you wish to add
+					$internal	Type Bool		true or false
+			*/
+
+			if ( $this->linn_auth_data == false ) {
+				// No connection to server
+				error_log("Linnworks API:AddOrderNote.  No Connection", 0);
+				return false;
+			} else {
+				$data = array( "OrderId" => $orderID );
+				$return = $this->call_linnworks_api("GetOrderDetailsByNumOrderId", $data ); // Get order details
+
+				$orderUID = $return["OrderId"]; // Get UUID of order
+				$notes = $return["Notes"]; // Get order details
+				
+				$notes[] = array(
+					"OrderId" => $orderUID,
+					"Note" => $note,
+					"Internal"=>$internal
+				);
+				
+				$data = array(
+					"orderId" => $orderUID,
+					"orderNotes" => $notes
+				);
+
+				$outcome = $this->call_linnworks_api( "SetOrderNotes", $data );
+				
+				return $outcome;
+			}
 		}
 	}
 ?>
