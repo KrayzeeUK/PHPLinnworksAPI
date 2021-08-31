@@ -64,8 +64,15 @@
 
 		function set_log_dir( $path ) {
 			
-			if ( substr($path, -1) != "\\" ) {
-				$path = $path . "\\";
+			if ( substr($path, -1) == "\\" ) {
+				if ( substr($path, -2) != "\\\\" ) {
+					$path = $path . "\\";
+				} else {
+					$path = $path . "\\\\";
+				}
+
+			} else {
+				$path = $path . "\\\\";
 			}
 			
 			$this->log_dir = $path; // Set log path
@@ -311,7 +318,7 @@
 					"getstocklocations" => array( "type" => "POST", "url" => "/Api/Inventory/GetStockLocations", "noparams" => 0),
 					"getstocksupplierstat" => array( "type" => "POST", "url" => "/Api/Inventory/GetStockSupplierStat", "noparams" => 1),
 					"getsupplierdetails" => array( "type" => "POST", "url" => "/Api/Inventory/GetSupplierDetails", "noparams" => 1),
-					"getsuppliers" => array( "type" => "POST", "url" => "/Api/Inventory/GetSuppliers", "noparams" => 1),
+					"getsuppliers" => array( "type" => "POST", "url" => "/Api/Inventory/GetSuppliers", "noparams" => 0),
 					"getuserspecificviews" => array( "type" => "POST", "url" => "/Api/Inventory/GetUserSpecificViews", "noparams" => 1),
 					"hasstockitembatches" => array( "type" => "POST", "url" => "/Api/Inventory/HasStockItemBatches", "noparams" => 1),
 					"hasstockitemstocklevel" => array( "type" => "POST", "url" => "/Api/Inventory/HasStockItemStockLevel", "noparams" => 1),
