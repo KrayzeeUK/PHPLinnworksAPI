@@ -9,6 +9,20 @@
 		https://apps.linnworks.net/Api
 
 		Linnworks API Intergration	Version 1.0
+		
+		/api/PurchaseOrder/Search_PurchaseOrders2 
+		
+		request={
+					"DateFrom":"2020-08-06T23:00:00.000Z",
+					"DateTo":"2021-09-01T22:59:59.999Z",
+					"Status":null,
+					"SearchValue":"SKU HERE",
+					"SearchType":"StockItemSKU",
+					"Location":[],
+					"Supplier":[],
+					"PageNumber":1,
+					"EntriesPerPage":"20"
+				}
 	*/
 	
 	class api_linnworks {
@@ -576,6 +590,7 @@
 					"modify_paymentstatement" => array( "type" => "POST", "url" => "/Api/PurchaseOrder/Modify_PaymentStatement", "noparams" => 1),
 					"modify_purchaseorderitems_bulk" => array( "type" => "POST", "url" => "/Api/PurchaseOrder/Modify_PurchaseOrderItems_Bulk", "noparams" => 1),
 					"search_purchaseorders" => array( "type" => "POST", "url" => "/Api/PurchaseOrder/Search_PurchaseOrders", "noparams" => 1),
+					"search_purchaseorders2" => array( "type" => "POST", "url" => "/api/PurchaseOrder/Search_PurchaseOrders2", "noparams" => 1),
 					"update_additionalcosttypes" => array( "type" => "POST", "url" => "/Api/PurchaseOrder/Update_AdditionalCostTypes", "noparams" => 1),
 					"update_purchaseorderextendedproperty" => array( "type" => "POST", "url" => "/Api/PurchaseOrder/Update_PurchaseOrderExtendedProperty", "noparams" => 1),
 					"update_purchaseorderheader" => array( "type" => "POST", "url" => "/Api/PurchaseOrder/Update_PurchaseOrderHeader", "noparams" => 1),
