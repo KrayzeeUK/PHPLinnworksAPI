@@ -10,6 +10,8 @@
 
 		Linnworks API Intergration	Version 1.0
 		
+		undocumented API Requests
+		
 		/api/PurchaseOrder/Search_PurchaseOrders2 
 		
 		request={
@@ -23,6 +25,16 @@
 					"PageNumber":1,
 					"EntriesPerPage":"20"
 				}
+				
+		/api/ProcessedOrders/LoadRedactedOrder
+
+		request={
+			  "Order": {
+				"pkOrderID": "f6d91625-91ff-40d6-84ea-fc0bb08f35a6",
+				"Source": "AMAZON"
+			  }
+			}
+
 	*/
 	
 	class api_linnworks {
@@ -548,6 +560,7 @@
 					"gettotalrefunds" => array( "type" => "POST", "url" => "/Api/ProcessedOrders/GetTotalRefunds", "noparams" => 1),
 					"isrefundvalid" => array( "type" => "POST", "url" => "/Api/ProcessedOrders/IsRefundValid", "noparams" => 1),
 					"isrefundvalidationrequiredbyorderid" => array( "type" => "POST", "url" => "/Api/ProcessedOrders/IsRefundValidationRequiredByOrderId", "noparams" => 1),
+					"loadredactedorder" => array( "type" => "POST", "url" => "/api/ProcessedOrders/LoadRedactedOrder", "noparams" => 1),
 					"markmanualrefundsasactioned" => array( "type" => "POST", "url" => "/Api/ProcessedOrders/MarkManualRefundsAsActioned", "noparams" => 1),
 					"refundfreetext" => array( "type" => "POST", "url" => "/Api/ProcessedOrders/RefundFreeText", "noparams" => 1),
 					"refundservices" => array( "type" => "POST", "url" => "/Api/ProcessedOrders/RefundServices", "noparams" => 1),
