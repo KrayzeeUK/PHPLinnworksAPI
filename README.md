@@ -61,7 +61,7 @@ Usage
 
 	if ( $linnworks->AuthorizeByApplication() == true ) {
 
-		// format youir data as per the linnworks API specifcations
+		// format your data as per the linnworks API specifcations
 		
 			$data = array( "countries" => array( array(
 								"CountryId" => "10f312d9-3438-4720-96c8-931bb5828487",
