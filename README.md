@@ -95,6 +95,6 @@ Usage
 		echo "Failed to authenticate";
 	}
 
-if you wish to donates or contributiosn to the work done and any future work then please use the link below.  Thanks
+if you wish to donates or contributions to the work done and any future work then please use the link below.  Thanks
 
 http://paypal.me/krayzeeuk
