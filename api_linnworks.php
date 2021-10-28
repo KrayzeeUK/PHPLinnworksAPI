@@ -986,6 +986,32 @@
 				return $outcome;
 			}
 		}
+
+		function CustomSearchByCategoryAndKeyword( $keyword, $category = "Default", $ignore = "" ) {
+
+			$words = explode( " ", $keyword ); // Explode the search text into individual items in an array
+			$keyword = "%" . implode( "% %", $words ) . "%"; // Add % to start and end of each word
+
+			$request = array(
+				"request" => array(
+					"Script" => "SELECT si.ItemNumber, si.ItemTitle, si.pkStockItemID, si.CategoryId FROM [StockItem] si INNER JOIN [dbo].[ProductCategories] pc ON si.CategoryId = pc.CategoryId WHERE CategoryName = '" . $category . "' AND si.ItemTitle LIKE '" . $keyword . "'"
+				)
+			);
+
+			if ( !empty($ignore) ) {
+				$words = explode( " ", $ignore ); // Explode the search text into individual items in an array
+				$ignore = "%" . implode( "% %", $words ) . "%"; // Add % to start and end of each word
+
+				$filter = " AND si.ItemTitle NOT LIKE '" . $ignore . "'";
+
+				$request["request"]["Script"] .= $filter;
+			}
+
+			echo "<pre>", print_r( $request, TRUE ), "</pre>";
+			echo "<pre>", json_encode( $request ), "</pre>";
+
+			return $this->call_linnworks_api( "ExecuteCustomScriptQuery", $request );
+		}
 	}
 
 ?>
