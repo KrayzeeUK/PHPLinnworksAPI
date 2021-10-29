@@ -989,28 +989,47 @@
 
 		function CustomSearchByCategoryAndKeyword( $keyword, $category = "Default", $ignore = "" ) {
 
-			$words = explode( " ", $keyword ); // Explode the search text into individual items in an array
-			$keyword = "%" . implode( "% %", $words ) . "%"; // Add % to start and end of each word
-
 			$request = array(
 				"request" => array(
-					"Script" => "SELECT * FROM [StockItem] si INNER JOIN [dbo].[ProductCategories] pc ON si.CategoryId = pc.CategoryId WHERE CategoryName = '" . $category . "' AND si.ItemTitle LIKE '" . $keyword . "'"
+					"Script" => "SELECT * FROM [StockItem] si INNER JOIN [dbo].[ProductCategories] pc ON si.CategoryId = pc.CategoryId WHERE CategoryName = '" . $category . "' "
 				)
 			);
 
-			if ( !empty($ignore) ) {
-				$words = explode( " ", $ignore ); // Explode the search text into individual items in an array
-				$ignore = "%" . implode( "% %", $words ) . "%"; // Add % to start and end of each word
+			if ( !empty( $keyword ) ) {
+				$words = explode( " ", $keyword ); // Explode the search text into individual items in an array
+				$keyword = $this->mySQL_Wildcard( $words ); // Add % to start and end of each word
 
-				$filter = " AND si.ItemTitle NOT LIKE '" . $ignore . "'";
+				$keyword = explode( " ", $keyword );
+				$filter = "";
+
+				foreach ( $keyword as $word ) {
+					$filter .= " AND si.ItemTitle LIKE '" . $word . "'";
+				}
 
 				$request["request"]["Script"] .= $filter;
 			}
 
-			echo "<pre>", print_r( $request, TRUE ), "</pre>";
-			echo "<pre>", json_encode( $request ), "</pre>";
+			if ( !empty( $ignore ) ) {
+				$words = explode( " ", $ignore ); // Explode the search text into individual items in an array
+				$ignore = $this->mySQL_Wildcard( $words ); // Add % to start and end of each word
+
+				$ignore = explode( " ", $ignore );
+				$filter = "";
+
+				foreach ( $ignore as $word ) {
+					$filter .= " AND si.ItemTitle NOT LIKE '" . $word . "'";
+				}
+
+					$request["request"]["Script"] .= $filter;
+			}
 
 			return $this->call_linnworks_api( "ExecuteCustomScriptQuery", $request );
+		}
+
+		private function mySQL_Wildcard( array $words ) {
+			$words = "%" . implode( "% %", $words ) . "%"; // Add % to start and end of each word
+
+			return $words;
 		}
 	}
 
