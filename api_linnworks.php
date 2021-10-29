@@ -996,10 +996,12 @@
 			);
 
 			if ( !empty( $keyword ) ) {
-				$words = explode( " ", $keyword ); // Explode the search text into individual items in an array
-				$keyword = $this->mySQL_Wildcard( $words ); // Add % to start and end of each word
+				if ( !is_array( $keyword ) ) {
+					$keyword = explode( " ", $keyword ); // Explode the search text into individual items in an array
+				}
+				$keyword = $this->mySQL_Wildcard( $keyword ); // Add % to start and end of each word
 
-				$keyword = explode( " ", $keyword );
+				$keyword = explode( " ", $keyword ); // split back into array
 				$filter = "";
 
 				foreach ( $keyword as $word ) {
@@ -1010,8 +1012,10 @@
 			}
 
 			if ( !empty( $ignore ) ) {
-				$words = explode( " ", $ignore ); // Explode the search text into individual items in an array
-				$ignore = $this->mySQL_Wildcard( $words ); // Add % to start and end of each word
+				if ( !is_array( $ignore ) ) {
+					$ignore = explode( " ", $ignore ); // Explode the search text into individual items in an array
+				}
+				$ignore = $this->mySQL_Wildcard( $ignore ); // Add % to start and end of each word
 
 				$ignore = explode( " ", $ignore );
 				$filter = "";
@@ -1020,7 +1024,7 @@
 					$filter .= " AND si.ItemTitle NOT LIKE '" . $word . "'";
 				}
 
-					$request["request"]["Script"] .= $filter;
+				$request["request"]["Script"] .= $filter;
 			}
 
 			return $this->call_linnworks_api( "ExecuteCustomScriptQuery", $request );
