@@ -994,7 +994,7 @@
 
 			$request = array(
 				"request" => array(
-					"Script" => "SELECT si.ItemNumber, si.ItemTitle, si.pkStockItemID, si.CategoryId FROM [StockItem] si INNER JOIN [dbo].[ProductCategories] pc ON si.CategoryId = pc.CategoryId WHERE CategoryName = '" . $category . "' AND si.ItemTitle LIKE '" . $keyword . "'"
+					"Script" => "SELECT * FROM [StockItem] si INNER JOIN [dbo].[ProductCategories] pc ON si.CategoryId = pc.CategoryId WHERE CategoryName = '" . $category . "' AND si.ItemTitle LIKE '" . $keyword . "'"
 				)
 			);
 
