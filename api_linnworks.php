@@ -1035,6 +1035,12 @@
 
 			return $words;
 		}
+
+		function get_linnworks_timestamp( $ts ) {
+			$ts = date( 'Y-m-d H-i-s', $ts ); // Format date
+			$ts = str_ireplace( " ", "T", $ts ); // Add T Between Date and time
+			return $ts; // Return format time stamp
+		}
 	}
 
 ?>
