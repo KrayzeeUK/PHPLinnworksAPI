@@ -996,8 +996,9 @@
 			);
 
 			if ( !empty( $keyword ) ) {
-				if ( !is_array( $keyword ) ) {
-					$new_keyword = explode( " ", $keyword ); // Explode the search text into individual items in an array
+				$new_keyword = $keyword;
+				if ( !is_array( $new_keyword ) ) {
+					$new_keyword = explode( " ", $new_keyword ); // Explode the search text into individual items in an array
 				}
 				$new_keyword = $this->mySQL_Wildcard( $new_keyword ); // Add % to start and end of each word
 
@@ -1032,7 +1033,7 @@
 
 			if ( $bcSKUcheck ) {
 				if ( is_array( $keyword ) ) {
-					$keyword = trim | ( implode( $keyword ) );
+					$keyword = trim( implode( $keyword ) );
 				}
 				$request["request"]["Script"] .= " OR BarcodeNumber = '" . $keyword . "' OR ItemNumber = '" . $keyword . "'";
 			}
