@@ -1028,7 +1028,7 @@
 			}
 
 			if ( $bcSKUcheck ) {
-				$request["request"]["Script"] .= " OR BarcodeNumber = '" . $keyword . "' OR SKU = '" . $keyword . "'";
+				$request["request"]["Script"] .= " OR BarcodeNumber = '" . $keyword . "' OR ItemNumber = '" . $keyword . "'";
 			}
 
 			return $this->call_linnworks_api( "ExecuteCustomScriptQuery", $request );
