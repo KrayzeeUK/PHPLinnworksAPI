@@ -39,21 +39,21 @@
 
 	class api_linnworks {
 
-		private $curl_handle = NULL;        // Pointer to curl process to be set later
+		private $curl_handle = null;        // Pointer to curl process to be set later
 
-		private $linn_app_id = NULL;        // Linnworks App ID
-		private $linn_app_secret = NULL;    // Linnworks App Secret Key
-		private $linn_app_token = NULL;    // Linnworks App Token
-		private $linn_auth_data = FALSE;    // Authorisation data
-		private $linn_auth_token = NULL;    // API Token
-		private $linn_auth_server = NULL;    // API Server
-		public $linn_error = NULL;            // Last Error Message
+		private $linn_app_id = null;        // Linnworks App ID
+		private $linn_app_secret = null;    // Linnworks App Secret Key
+		private $linn_app_token = null;    // Linnworks App Token
+		private $linn_auth_data = false;    // Authorisation data
+		private $linn_auth_token = null;    // API Token
+		private $linn_auth_server = null;    // API Server
+		public $linn_error = null;            // Last Error Message
 
-		private $debug = FALSE;            // Enable debug mode (Call enable_debug function to enable)
-		public $debug_info = NULL;            // String containing HTML Debug info.
+		private $debug = false;            // Enable debug mode (Call enable_debug function to enable)
+		public $debug_info = null;            // String containing HTML Debug info.
 
-		private $log_api = FALSE;            // Enable API Logging
-		private $log_dir = NULL;            // Director to save API Call files in
+		private $log_api = false;            // Enable API Logging
+		private $log_dir = null;            // Director to save API Call files in
 
 		function __construct() {
 			// initialize an object's properties upon creation
@@ -74,7 +74,7 @@
 		//  Debug Functions
 
 		function enable_debug() {
-			$this->debug = TRUE;
+			$this->debug = true;
 		}
 
 		protected function debug_display( $vals, $title = "Debug Info", $style = 'display: block; margin-left: auto; margin-right: auto; width: 90%; Height: 25%' ) {
@@ -83,7 +83,7 @@
 
 			if ( $this->debug ) {
 				$html .= "<div><hr>" . $title . "<hr>";
-				$html .= "<textarea style=\"" . $style . "\">" . print_r( $vals, TRUE ) . "</textarea>";
+				$html .= "<textarea style=\"" . $style . "\">" . print_r( $vals, true ) . "</textarea>";
 				$html .= "<hr></div>";
 			}
 
@@ -104,31 +104,31 @@
 			}
 
 			$this->log_dir = $path; // Set log path
-			$this->log_api = TRUE; // if log path set then enable logging
+			$this->log_api = true; // if log path set then enable logging
 		}
 
 		protected function log_api_calls( $log ) {
 
-			if ( $this->log_api and $this->log_dir != NULL ) {
+			if ( $this->log_api and $this->log_dir != null ) {
 
 				$lfname = $this->log_dir . "api_log_" . date( 'Y-m-d' ) . ".log";
 
 				if ( !file_exists( $this->log_dir ) ) {
 					// Directory Doesnt Exist.
-					if ( !mkdir( $this->log_dir, 0777, TRUE ) ) {
+					if ( !mkdir( $this->log_dir, 0777, true ) ) {
 						// if unable to make directory exit with failure message
 						die( "Failed to create file struction" );
 					}
 				}
 
-				file_put_contents( $lfname, ( var_export( $log, TRUE ) . "\r\n\r\n" ), FILE_APPEND );
+				file_put_contents( $lfname, ( var_export( $log, true ) . "\r\n\r\n" ), FILE_APPEND );
 
 			}
 		}
 
 		// Main API Calling Routine
 
-		protected function api_call( $type, $api_url, $api_params = NULL, $api_headers = NULL, $api_options = NULL ) {
+		protected function api_call( $type, $api_url, $api_params = null, $api_headers = null, $api_options = null ) {
 			/*
 				Set all require headers for API Authorisation
 			*/
@@ -142,7 +142,7 @@
 			$d_header[] = "Content-Type: application/x-www-form-urlencoded; charset=UTF-8";
 			$d_header[] = "Accept-Encoding: gzip, deflate";
 
-			if ( $this->linn_auth_token != NULL ) {
+			if ( $this->linn_auth_token != null ) {
 				$d_header[] = "Authorization: " . $this->linn_auth_token;
 
 				$api_url = $this->linn_auth_server . $api_url;
@@ -150,7 +150,7 @@
 
 			$log_data["URL"] = $api_url; // Assign URL to log
 
-			if ( $api_headers != NULL and !empty( $api_headers ) ) {
+			if ( $api_headers != null and !empty( $api_headers ) ) {
 				$d_header = array_merge( $d_header, $api_headers ); // Merge Default Headers with additional headers
 			}
 
@@ -159,25 +159,25 @@
 			// Roll everything up into final parameters for curl
 
 			$d_options = array(
-				CURLOPT_RETURNTRANSFER => TRUE,
-				CURLINFO_HEADER_OUT => TRUE,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLINFO_HEADER_OUT => true,
 				CURLOPT_URL => $api_url,
 				CURLOPT_ENCODING => "",
 				CURLOPT_MAXREDIRS => 10,
 				CURLOPT_TIMEOUT => 0,
-				CURLOPT_FOLLOWLOCATION => TRUE,
+				CURLOPT_FOLLOWLOCATION => true,
 				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				CURLOPT_HTTPHEADER => $d_header
 			);
 
 			if ( $type == "post" ) {
 				curl_setopt( $this->curl_handle, CURLOPT_POST, 1 );
-				if ( !empty( $api_params ) and $api_params != NULL ) {
+				if ( !empty( $api_params ) and $api_params != null ) {
 					curl_setopt( $this->curl_handle, CURLOPT_POSTFIELDS, $api_params );
 				}
 			} elseif ( $type == "put" ) {
 				curl_setopt( $this->curl_handle, CURLOPT_CUSTOMREQUEST, "PUT" );
-				if ( !empty( $api_params ) and $api_params != NULL ) {
+				if ( !empty( $api_params ) and $api_params != null ) {
 					curl_setopt( $this->curl_handle, CURLOPT_POSTFIELDS, $api_params );
 				}
 			} else {
@@ -195,7 +195,7 @@
 
 			curl_setopt_array( $this->curl_handle, $d_options ); // Set all options
 
-			$session_data = json_decode( curl_exec( $this->curl_handle ), TRUE ); // Execute Curl function and store return & decode json return
+			$session_data = json_decode( curl_exec( $this->curl_handle ), true ); // Execute Curl function and store return & decode json return
 
 			$log_data["APIReturn"] = $session_data; // Assign API Return data to log
 
@@ -208,9 +208,9 @@
 
 			if ( !empty( $session_data["Code"] ) ) {
 				$this->linn_error = $session_data;
-				return FALSE;
+				return false;
 			} else {
-				$this->linn_error = NULL;
+				$this->linn_error = null;
 				return $session_data; // Assign Season data
 			}
 		}
@@ -795,7 +795,7 @@
 			if ( array_key_exists( $apiname, $api_calls ) ) {
 				return $api_calls[ $apiname ];
 			} else {
-				return FALSE;
+				return false;
 			}
 		}
 
@@ -815,20 +815,20 @@
 		*/
 
 
-		function call_linnworks_api( $apicall, $params = NULL ) {
+		function call_linnworks_api( $apicall, $params = null ) {
 
-			$this->debug_info = NULL;  // Reset Debug info per call
+			$this->debug_info = null;  // Reset Debug info per call
 
 			$check_api = $this->api_call_names( $apicall );
 
-			if ( $check_api != FALSE ) {
+			if ( $check_api != false ) {
 				// API Call Found
 
 				if ( !empty( $params ) and !is_null( $params ) ) {
 					$pc = count( $params ); // count the number of parameters passed
 				} else {
 					$pc = 0; // if empty the set Parameter count to 0
-					$params = NULL; // If empty enforce NULL value
+					$params = null; // If empty enforce null value
 				}
 
 				$log_data = array(
@@ -870,10 +870,10 @@
 				}
 			} else {
 				if ( $this->debug ) {
-					$this->debug_display( NULL, "API Call Not Found" );
+					$this->debug_display( null, "API Call Not Found" );
 				}
 			}
-			return FALSE;
+			return false;
 		}
 
 		function check_credentials() {
@@ -882,10 +882,10 @@
 			*/
 			$check = array( $this->linn_app_id, $this->linn_app_secret, $this->linn_app_token );
 
-			if ( in_array( NULL, $check ) ) {
-				return FALSE;
+			if ( in_array( null, $check ) ) {
+				return false;
 			} else {
-				return TRUE;
+				return true;
 			}
 		}
 
@@ -929,11 +929,11 @@
 				$this->linn_auth_token = $c_data["Token"]; // Store API Token
 				$this->linn_auth_server = $c_data["Server"]; // Store API Server
 
-				return TRUE;
+				return true;
 			} else {
 				error_log( "Linnworks API:linn_auth.  No Connection", 0 );
 
-				return FALSE;
+				return false;
 			}
 		}
 
@@ -959,10 +959,10 @@
 					$internal	Type Bool		true or false
 			*/
 
-			if ( $this->linn_auth_data == FALSE ) {
+			if ( $this->linn_auth_data == false ) {
 				// No connection to server
 				error_log( "Linnworks API:AddOrderNote.  No Connection", 0 );
-				return FALSE;
+				return false;
 			} else {
 				$data = array( "OrderId" => $orderID );
 				$return = $this->call_linnworks_api( "GetOrderDetailsByNumOrderId", $data ); // Get order details
@@ -997,15 +997,17 @@
 
 			if ( !empty( $keyword ) ) {
 				if ( !is_array( $keyword ) ) {
-					$keyword = explode( " ", $keyword ); // Explode the search text into individual items in an array
+					$new_keyword = explode( " ", $keyword ); // Explode the search text into individual items in an array
 				}
-				$keyword = $this->mySQL_Wildcard( $keyword ); // Add % to start and end of each word
+				$new_keyword = $this->mySQL_Wildcard( $new_keyword ); // Add % to start and end of each word
 
-				$keyword = explode( " ", $keyword ); // split back into array
+				$new_keyword = explode( " ", $new_keyword ); // split back into array
 				$filter = "";
+				$kwstart = "(";
 
-				foreach ( $keyword as $word ) {
-					$filter .= " AND si.ItemTitle LIKE '" . $word . "'";
+				foreach ( $new_keyword as $word ) {
+					$filter .= " AND " . $kwstart . "si.ItemTitle LIKE '" . $word . "'";
+					$kwstart = "";
 				}
 
 				$request["request"]["Script"] .= $filter;
@@ -1026,11 +1028,15 @@
 
 				$request["request"]["Script"] .= $filter;
 			}
+			$request["request"]["Script"] .= ")";
 
 			if ( $bcSKUcheck ) {
+				if ( is_array( $keyword ) ) {
+					$keyword = trim | ( implode( $keyword ) );
+				}
 				$request["request"]["Script"] .= " OR BarcodeNumber = '" . $keyword . "' OR ItemNumber = '" . $keyword . "'";
 			}
-
+			echo "<pre>", print_r( $request, true ), "</pre>";
 			return $this->call_linnworks_api( "ExecuteCustomScriptQuery", $request );
 		}
 
