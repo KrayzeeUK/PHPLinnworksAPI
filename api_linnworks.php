@@ -991,7 +991,7 @@
 
 			$request = array(
 				"request" => array(
-					"Script" => "SELECT * FROM [StockItem] si INNER JOIN [dbo].[ProductCategories] pc ON si.CategoryId = pc.CategoryId WHERE CategoryName = '" . $category . "' "
+					"Script" => "SELECT * FROM [StockItem] si INNER JOIN [dbo].[ProductCategories] pc ON si.CategoryId = pc.CategoryId WHERE ( CategoryName = '" . $category . "' "
 				)
 			);
 
@@ -1007,8 +1007,7 @@
 				$kwstart = "(";
 
 				foreach ( $new_keyword as $word ) {
-					$filter .= " AND " . $kwstart . "si.ItemTitle LIKE '" . $word . "'";
-					$kwstart = "";
+					$filter .= " AND si.ItemTitle LIKE '" . $word . "'";
 				}
 
 				$request["request"]["Script"] .= $filter;
@@ -1029,7 +1028,7 @@
 
 				$request["request"]["Script"] .= $filter;
 			}
-			$request["request"]["Script"] .= ")";
+			$request["request"]["Script"] .= " )";
 
 			if ( $bcSKUcheck ) {
 				if ( is_array( $keyword ) ) {
