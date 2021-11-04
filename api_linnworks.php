@@ -987,7 +987,7 @@
 			}
 		}
 
-		function CustomSearchByCategoryAndKeyword( $keyword, $category = "Default", $ignore = "" ) {
+		function CustomSearchByCategoryAndKeyword( $keyword, $category = "Default", $ignore = "", $bcSKUcheck = false ) {
 
 			$request = array(
 				"request" => array(
@@ -1025,6 +1025,10 @@
 				}
 
 				$request["request"]["Script"] .= $filter;
+			}
+
+			if ( $bcSKUcheck ) {
+				$request["request"]["Script"] .= " OR BarcodeNumber = '" . $keyword . "' OR SKU = '" . $keyword . "'";
 			}
 
 			return $this->call_linnworks_api( "ExecuteCustomScriptQuery", $request );
