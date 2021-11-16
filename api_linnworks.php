@@ -989,7 +989,7 @@
 
 		function CustomSearchByCategoryAndKeyword( $keyword, string $category = "'Default'", $ignore = "", $bcSKUcheck = FALSE ) {
 
-			$category = str_ireplace( '"', "'", $category );
+			$category = str_ireplace( array( '"', "\r", "\n" ), array( "'", "", "" ), $category );
 
 			if ( strpos( $category, "'" ) != 0 ) {
 				$category = "'" . $category;
