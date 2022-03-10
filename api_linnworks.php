@@ -1,14 +1,14 @@
 <?php
 	/*
-		Writen & Designed by KrayZee Tech(Martin Roberts) & remains his Intellectual Property.
+		Written & Designed by KrayZee Tech(Martin Roberts) & remains his Intellectual Property.
 		© Copyright KrayZee Tech(Martin Roberts)  2015
 		
 		KrayZee Tech(Martin Roberts) may allow this software to be used for free for a period of time.  This can be retracted at anytime without notification.
-		KrayZee Tech(Martin Roberts) will allow brading of his product during the usage period of the software but remains the property of KrayZee Tech(Martin Roberts)
+		KrayZee Tech(Martin Roberts) will allow branding of his product during the usage period of the software but remains the property of KrayZee Tech(Martin Roberts)
 
 		https://apps.linnworks.net/Api
 
-		Linnworks API Intergration	Version 1.0
+		Linnworks API Integration Version 1.0
 		
 		undocumented API Requests
 		
@@ -59,7 +59,7 @@
 			// initialize an object's properties upon creation
 
 			try {
-				$this->curl_handle = curl_init(); // Initate New curl sessionv
+				$this->curl_handle = curl_init(); // Initiate New curl session
 			} catch ( Exception $e ) {
 				$this->debug_display( print_r( $e, 1 ) );
 			}
@@ -117,7 +117,7 @@
 					// Directory Doesnt Exist.
 					if ( !mkdir( $this->log_dir, 0777, TRUE ) ) {
 						// if unable to make directory exit with failure message
-						die( "Failed to create file struction" );
+						die( "Failed to create file structure" );
 					}
 				}
 
@@ -195,7 +195,9 @@
 
 			curl_setopt_array( $this->curl_handle, $d_options ); // Set all options
 
-			$session_data = json_decode( curl_exec( $this->curl_handle ), TRUE ); // Execute Curl function and store return & decode json return
+			$cReturn = curl_exec( $this->curl_handle ); // Execute Curl function and store return
+
+			$session_data = json_decode( $cReturn, TRUE ); // Decode Curl json return
 
 			$log_data["APIReturn"] = $session_data; // Assign API Return data to log
 
@@ -891,7 +893,7 @@
 
 		function set_credentials( $id, $secret, $token ) {
 			/*
-				Setup API Creditials ready for use
+				Setup API Credentials ready for use
 			*/
 
 			$this->linn_app_id = $id;
@@ -903,12 +905,12 @@
 
 		function AuthorizeByApplication() {
 			/*
-				Create connection to Linnworks API server and get autfhorisation token
+				Create connection to Linnworks API server and get authorisation token
 
 				request={
-					"ApplicationId": "298de537-0fd8-4493-9947-6e441412a7ba",
-					"ApplicationSecret": "d58b3abc-efbf-4e8a-ac94-fc0e5d4f6e7c",
-					"Token": "9b442692-ee22-4b39-bdc6-e1e112641475"
+					"ApplicationId": "",
+					"ApplicationSecret": "",
+					"Token": ""
 				}
 			*/
 
@@ -939,9 +941,7 @@
 
 		function GetApplicationProfileBySecretKey() {
 			/*
-				applicationId=9280b1b1-c8df-4566-8168-63fdf197e215&
-				applicationSecret=892ec09f-a771-4fbc-92b3-a51fd8c83160&
-				userId=dc38dae1-374b-44ec-a004-90f4f739e1bb
+
 			*/
 
 			$url = "/api/Auth/GetApplicationProfileBySecretKey";
@@ -951,7 +951,7 @@
 
 		function addordernotebyorderid( $orderID, $note, $internal ) {
 			/*
-				Add an additional note to a order.
+				Add additional note(s) to an order.
 				
 				Parameters
 					$orderID	Type String		Linnworks Order ID
@@ -1046,7 +1046,7 @@
 				}
 				$request["request"]["Script"] .= " OR BarcodeNumber = '" . $keyword . "' OR ItemNumber = '" . $keyword . "'";
 			}
-			echo "<pre>", print_r( $request, TRUE ), "</pre>";
+
 			return $this->call_linnworks_api( "ExecuteCustomScriptQuery", $request );
 		}
 
