@@ -128,7 +128,7 @@
 
 		// Main API Calling Routine
 
-		protected function api_call( $type, $api_url, $api_params = NULL, $api_headers = NULL, $api_options = NULL ) {
+		protected function api_call( $type, $api_url, $api_params = NULL, $api_headers = NULL, $api_options = NULL, $useFileCache = FALSE ) {
 			/*
 				Set all require headers for API Authorisation
 			*/
@@ -170,6 +170,11 @@
 				CURLOPT_HTTPHEADER => $d_header
 			);
 
+			if ( $useFileCache ) {
+				$temp = tmpfile();
+				$d_options[ CURLOPT_FILE ] = $temp;
+			}
+
 			if ( $type == "post" ) {
 				curl_setopt( $this->curl_handle, CURLOPT_POST, 1 );
 				if ( !empty( $api_params ) and $api_params != NULL ) {
@@ -197,6 +202,14 @@
 
 			$cReturn = curl_exec( $this->curl_handle ); // Execute Curl function and store return
 
+			if ( $useFileCache ) {
+				/*
+					fseek( $temp, 0 ); // reset file point to start of file
+					echo fread( $temp, 1024 );
+					$contents = stream_get_contents($temp); // stream contents
+				*/
+			}
+
 			$session_data = json_decode( $cReturn, TRUE ); // Decode Curl json return
 
 			$log_data["APIReturn"] = $session_data; // Assign API Return data to log
@@ -207,6 +220,10 @@
 			}
 
 			$this->log_api_calls( $log_data, "API Call" ); // Log API Call
+
+			if ( $useFileCache ) {
+				fclose( $temp ); // this removes the file
+			}
 
 			if ( !empty( $session_data["Code"] ) ) {
 				$this->linn_error = $session_data;
@@ -947,8 +964,12 @@
 			$url = "/api/Auth/GetApplicationProfileBySecretKey";
 		}
 
-		// Customer functions
+		// Custom functions
 
+		private function jsonStreamDecode( $handle) {
+			
+		}
+		
 		function addordernotebyorderid( $orderID, $note, $internal ) {
 			/*
 				Add additional note(s) to an order.
