@@ -39,21 +39,21 @@
 
 	class api_linnworks {
 
-		private $curl_handle = NULL;        // Pointer to curl process to be set later
+		private $curl_handle = NULL;		// Pointer to curl process to be set later
 
-		private $linn_app_id = NULL;        // Linnworks App ID
-		private $linn_app_secret = NULL;    // Linnworks App Secret Key
-		private $linn_app_token = NULL;    // Linnworks App Token
-		private $linn_auth_data = FALSE;    // Authorisation data
-		private $linn_auth_token = NULL;    // API Token
-		private $linn_auth_server = NULL;    // API Server
-		public $linn_error = NULL;            // Last Error Message
+		private $linn_app_id = NULL;		// Linnworks App ID
+		private $linn_app_secret = NULL;	// Linnworks App Secret Key
+		private $linn_app_token = NULL;		// Linnworks App Token
+		private $linn_auth_data = FALSE;	// Authorisation data
+		private $linn_auth_token = NULL;	// API Token
+		private $linn_auth_server = NULL;	// API Server
+		public $linn_error = NULL;			// Last Error Message
 
-		private $debug = FALSE;            // Enable debug mode (Call enable_debug function to enable)
-		public $debug_info = NULL;            // String containing HTML Debug info.
+		private $debug = FALSE;				// Enable debug mode (Call enable_debug function to enable)
+		public $debug_info = NULL;			// String containing HTML Debug info.
 
-		private $log_api = FALSE;            // Enable API Logging
-		private $log_dir = NULL;            // Director to save API Call files in
+		private $log_api = FALSE;			// Enable API Logging
+		private $log_dir = NULL;			// Director to save API Call files in
 
 		function __construct() {
 			// initialize an object's properties upon creation
@@ -128,10 +128,18 @@
 
 		// Main API Calling Routine
 
-		protected function api_call( $type, $api_url, $api_params = NULL, $api_headers = NULL, $api_options = NULL, $useFileCache = FALSE ) {
-			/*
-				Set all require headers for API Authorisation
-			*/
+		/**
+		 * Call the API
+		 *
+		 * @param string $type 			Type of call being made EG: GET, POST, PUT, DELETE
+		 * @param string $api_url		API URL to call
+		 * @param null   $api_params	Parameters to pass to API
+		 * @param null   $api_headers	Headers to pass to API
+		 * @param null   $api_options	Options to pass to API
+		 * @param false  $useFileCache	Use File Cache
+		 * @return array|false|mixed
+		 */
+		protected function api_call( string $type, string $api_url, $api_params = NULL, $api_headers = NULL, $api_options = NULL, $useFileCache = FALSE ) {
 
 			$type = strtolower( $type ); // Make sure the type is lowercase
 
@@ -171,8 +179,8 @@
 			);
 
 			if ( $useFileCache ) {
-				$temp = tmpfile();
-				$d_options[ CURLOPT_FILE ] = $temp;
+				$temp = tmpfile(); // Create Temporary File for caching
+				$d_options[ CURLOPT_FILE ] = $temp; // set temporary file in CURL options
 			}
 
 			if ( $type == "post" ) {
@@ -203,14 +211,10 @@
 			$cReturn = curl_exec( $this->curl_handle ); // Execute Curl function and store return
 
 			if ( $useFileCache ) {
-				/*
-					fseek( $temp, 0 ); // reset file point to start of file
-					echo fread( $temp, 1024 );
-					$contents = stream_get_contents($temp); // stream contents
-				*/
+				$session_data = $this->jsonStreamDecode( $temp ); // Decode the Json
+			} else {
+				$session_data = json_decode( $cReturn, TRUE ); // Decode Curl json return
 			}
-
-			$session_data = json_decode( $cReturn, TRUE ); // Decode Curl json return
 
 			$log_data["APIReturn"] = $session_data; // Assign API Return data to log
 
@@ -222,7 +226,7 @@
 			$this->log_api_calls( $log_data, "API Call" ); // Log API Call
 
 			if ( $useFileCache ) {
-				fclose( $temp ); // this removes the file
+				fclose( $temp ); // Remove temporary file by closing the resource
 			}
 
 			if ( !empty( $session_data["Code"] ) ) {
@@ -834,7 +838,7 @@
 		*/
 
 
-		function call_linnworks_api( $apicall, $params = NULL ) {
+		function call_linnworks_api( $apicall, $params = NULL, $useFileCache = FALSE ) {
 
 			$this->debug_info = NULL;  // Reset Debug info per call
 
@@ -966,10 +970,22 @@
 
 		// Custom functions
 
-		private function jsonStreamDecode( $handle) {
-			
+		/**
+		 * Take a Stream containing JSON data and decode it
+		 *
+		 * @param resource $handle file resource to decode
+		 * @return array            array of decoded json data
+		 */
+		private function jsonStreamDecode( $handle ): array {
+
+			fseek( $temp, 0 ); // reset file point to start of file
+			echo fread( $temp, 1024 );
+			$contents = stream_get_contents( $temp ); // stream contents
+			echo "<h1>Linnworks:</h1><textarea>", print_r( $contents, TRUE ), "</textarea>";
+			die();
+			return array();
 		}
-		
+
 		function addordernotebyorderid( $orderID, $note, $internal ) {
 			/*
 				Add additional note(s) to an order.
