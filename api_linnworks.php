@@ -39,21 +39,21 @@
 
 	class api_linnworks {
 
-		private $curl_handle = NULL;		// Pointer to curl process to be set later
+		private $curl_handle = NULL;        // Pointer to curl process to be set later
 
-		private $linn_app_id = NULL;		// Linnworks App ID
-		private $linn_app_secret = NULL;	// Linnworks App Secret Key
-		private $linn_app_token = NULL;		// Linnworks App Token
-		private $linn_auth_data = FALSE;	// Authorisation data
-		private $linn_auth_token = NULL;	// API Token
-		private $linn_auth_server = NULL;	// API Server
-		public $linn_error = NULL;			// Last Error Message
+		private $linn_app_id = NULL;        // Linnworks App ID
+		private $linn_app_secret = NULL;    // Linnworks App Secret Key
+		private $linn_app_token = NULL;        // Linnworks App Token
+		private $linn_auth_data = FALSE;    // Authorisation data
+		private $linn_auth_token = NULL;    // API Token
+		private $linn_auth_server = NULL;    // API Server
+		public $linn_error = NULL;            // Last Error Message
 
-		private $debug = FALSE;				// Enable debug mode (Call enable_debug function to enable)
-		public $debug_info = NULL;			// String containing HTML Debug info.
+		private $debug = FALSE;                // Enable debug mode (Call enable_debug function to enable)
+		public $debug_info = NULL;            // String containing HTML Debug info.
 
-		private $log_api = FALSE;			// Enable API Logging
-		private $log_dir = NULL;			// Director to save API Call files in
+		private $log_api = FALSE;            // Enable API Logging
+		private $log_dir = NULL;            // Director to save API Call files in
 
 		function __construct() {
 			// initialize an object's properties upon creation
@@ -131,15 +131,15 @@
 		/**
 		 * Call the API
 		 *
-		 * @param string $type 			Type of call being made EG: GET, POST, PUT, DELETE
-		 * @param string $api_url		API URL to call
-		 * @param null   $api_params	Parameters to pass to API
-		 * @param null   $api_headers	Headers to pass to API
-		 * @param null   $api_options	Options to pass to API
-		 * @param false  $useFileCache	Use File Cache
+		 * @param string $type         Type of call being made EG: GET, POST, PUT, DELETE
+		 * @param string $api_url      API URL to call
+		 * @param null   $api_params   Parameters to pass to API
+		 * @param null   $api_headers  Headers to pass to API
+		 * @param null   $api_options  Options to pass to API
+		 * @param false  $useFileCache Use File Cache
 		 * @return array|false|mixed
 		 */
-		protected function api_call( string $type, string $api_url, $api_params = NULL, $api_headers = NULL, $api_options = NULL, $useFileCache = FALSE ) {
+		protected function api_call( string $type, string $api_url, $api_params = "", $api_headers = "", $api_options = "", $useFileCache = FALSE ) {
 
 			$type = strtolower( $type ); // Make sure the type is lowercase
 
@@ -883,7 +883,7 @@
 
 					$this->log_api_calls( $log_data, "Call Linnworks API" ); // Log API Call
 
-					$api_return = $this->api_call( $check_api["type"], $check_api["url"], $params );
+					$api_return = $this->api_call( $check_api["type"], $check_api["url"], $params, "", "", $useFileCache );
 
 					if ( $this->debug ) {
 						$this->debug_display( $api_return, "API Return" );
@@ -978,12 +978,54 @@
 		 */
 		private function jsonStreamDecode( $handle ): array {
 
-			fseek( $temp, 0 ); // reset file point to start of file
-			echo fread( $temp, 1024 );
-			$contents = stream_get_contents( $temp ); // stream contents
-			echo "<h1>Linnworks:</h1><textarea>", print_r( $contents, TRUE ), "</textarea>";
-			die();
-			return array();
+			$contents = "";
+			$temp = tmpfile(); // Create Temporary File for caching
+			$path = stream_get_meta_data( $temp )['uri'];
+
+			fseek( $handle, 0 ); // reset file point to start of file
+
+			if ( fwrite( $temp, '<?php return ' ) === FALSE ) {
+				echo "Cannot write to file ($path)";
+				exit;
+			}
+
+			while ( !feof( $handle ) ) {
+
+				$contents = stream_get_contents( $handle,100000 ); // stream contents
+
+				$contents = str_ireplace(
+					array(
+						"[",
+						"]",
+						"{",
+						"}",
+						":"
+					),
+					array(
+						"array ( ",
+						"\r\n)\r\n",
+						"array ( ",
+						"\r\n)\r\n",
+						" => "
+					),
+					$contents
+				);
+				if ( fwrite( $temp, $contents ) === FALSE ) {
+					echo "Cannot write to file ($path)";
+					exit;
+				}
+			}
+			if ( fwrite( $temp, ';' ) === FALSE ) {
+				echo "Cannot write to file ($path)";
+				exit;
+			}
+
+			//echo "<h1>New Contents:</h1><textarea style='width:100%;height: 35%;'>", print_r( $contents, TRUE ), "</textarea>";
+			$data = include( $path );
+
+			fclose( $temp ); // Remove temporary file by closing the resource
+
+			return $data;
 		}
 
 		function addordernotebyorderid( $orderID, $note, $internal ) {
