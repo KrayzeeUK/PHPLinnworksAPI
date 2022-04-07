@@ -73,10 +73,18 @@
 
 		//  Debug Functions
 
+		/**
+		 * Call this function to enable debug mode
+		 */
 		function enable_debug() {
 			$this->debug = TRUE;
 		}
 
+		/**
+		 * @param Mixed $vals		Variable to log
+		 * @param string $title		Title to display on debug output
+		 * @param string $style		CSS Style of debug output
+		 */
 		protected function debug_display( $vals, $title = "Debug Info", $style = 'display: block; margin-left: auto; margin-right: auto; width: 90%; Height: 25%' ) {
 
 			$html = "";
@@ -90,7 +98,12 @@
 			$this->debug_info .= $html;
 		}
 
-		function set_log_dir( $path ) {
+		/**
+		 * Set path to save debug log
+		 *
+		 * @param string $path	Path to save debug log to
+		 */
+		function set_log_dir( string $path ) {
 
 			if ( substr( $path, -1 ) == "\\" ) {
 				if ( substr( $path, -2 ) != "\\\\" ) {
